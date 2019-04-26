@@ -1,7 +1,7 @@
 {
   "tracking-number-card": {
-    "updated_at": "2019-04-25",
-    "version": "1.0.0",
+    "updated_at": "2019-04-26",
+    "version": "1.0.1",
     "remote_location": "https://raw.githubusercontent.com/ljmerza/tracking-number-card/master/tracking-number-card.js",
     "visit_repo": "https://github.com/ljmerza/tracking-number-card",
     "changelog": "https://github.com/ljmerza/tracking-number-card/releases/latest"

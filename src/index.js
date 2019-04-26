@@ -28,10 +28,17 @@ class TrackingNumberCard extends LitElement {
   }
 
   /**
- * get the current size of the card
- * @return {Number}
- */
+   * get the current size of the card
+   * @return {Number}
+   */
   getCardSize() {
+    if (this.config){
+      const headerSize = (this.config.showHeader && this.config.header) ? 1 : 0;
+      const trackingNumbers = this.getTrackingNumbers();
+      const bodySize = (trackingNumbers && trackingNumbers.length) || 0;
+      return headerSize + bodySize;
+    }
+
     return 1;
   }
 
