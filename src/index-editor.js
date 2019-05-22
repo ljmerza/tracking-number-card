@@ -48,9 +48,20 @@ export default class TrackingNumberCardEditor extends LitElement {
             
                 <div class=overall-config'>
                     <paper-input label="Header (Optional)" .value="${this._config.header}" .configValue="${"header"}" @value-changed="${this._valueChanged}"></paper-input>
-            
+
+
                     <div class='checkbox-options'>
-                        <paper-checkbox @checked-changed="${this._valueChanged}" .checked=${this._config.showHeader} .configValue="${"showHeader"}">Show Header</paper-checkbox>
+                        <paper-checkbox 
+                            @checked-changed="${this._valueChanged}" 
+                            .checked=${this._config.showHeader} 
+                            .configValue="${"showHeader"}"
+                        >Show Header</paper-checkbox>
+
+                        <paper-checkbox 
+                            @checked-changed="${this._valueChanged}" 
+                            .checked=${this._config.hideWhenEmpty} 
+                            .configValue="${"hideWhenEmpty"}"
+                        >Hide When Empty</paper-checkbox>
                     </div>
                 </div>
             

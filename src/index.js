@@ -51,11 +51,17 @@ class TrackingNumberCard extends LitElement {
    * @return {TemplateResult}
    */
   render() {
+    const header = this.createHeader();
+    const body = this.createBody();
+
+    // if we want to hide and trackers is empty then hide card completely
+    if(this.config.hideWhenEmpty && this.trackingNumbers && this.trackingNumbers.length === 0)
+      return html``;
 
     return html`
       <ha-card>
-        ${this.createHeader()}
-        ${this.createBody()}
+        ${header}
+        ${body}
       </ha-card>
     `;
   }
@@ -75,8 +81,8 @@ class TrackingNumberCard extends LitElement {
   }
 
   createBody() {
-    const trackingNumbers = this.getTrackingNumbers();
-    const trackingObjects = this.generateTrackingNumberLinks(trackingNumbers)
+    this.trackingNumbers = this.getTrackingNumbers();
+    const trackingObjects = this.generateTrackingNumberLinks(this.trackingNumbers);
 
     const table = trackingObjects.map(tracker => {
 

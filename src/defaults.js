@@ -2,5 +2,6 @@
 
 export default {
     header: 'Tracking Numbers',
-    showHeader: true
+    showHeader: true,
+    hideWhenEmpty: false,
 };

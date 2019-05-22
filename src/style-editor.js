@@ -5,6 +5,10 @@ const style = css`
         padding-top: 20px;
     }
 
+    .checkbox-options {
+        display: flex;
+    }
+
     .checkbox-options:first-of-type {
         margin-top: 10px;
     }
