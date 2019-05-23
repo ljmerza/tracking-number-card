@@ -34,6 +34,7 @@ You will need the [Email Sensor](https://github.com/ljmerza/ha-email-sensor) ins
 | type | string | **Required** | `custom:tracking-number-card`
 | header | string | **Optional** | `Tracking Numbers` Header of card
 | showHeader | boolean | **Optional** | `true` Hide header
+| hideWhenEmpty  | boolean | **Optional** | `false` Hide card when no tracking numbers found
 
 ## Configuration
 Download `tracking-number-card.js` from the [latest release](https://github.com/ljmerza/tracking-number-card/releases/latest) and upload it your /www folder of your Home Assistant config directory.
