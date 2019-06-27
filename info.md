@@ -21,10 +21,9 @@ resources:
 ## Configurations:
 ---
 ```yaml
-views:
-  - type: custom:tracking-number-card
-    entities:
-      - sensor.email_ljmerzagmailcom
+type: custom:tracking-number-card
+entities:
+  - sensor.email_ljmerzagmailcom
 ```
 
 ## Options:
