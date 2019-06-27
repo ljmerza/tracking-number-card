@@ -1,60 +1,40 @@
 # Tracking Number Card for Home Assistant
+Shows any shipping tracking numbers in your emails
 
-
-![](./Capture.PNG)
-
----
+<img src='https://raw.githubusercontent.com/ljmerza/tracking-number-card/master/card.png' />
 
 [![GitHub Release][releases-shield]][releases]
 [![License][license-shield]](LICENSE.md)
-
 ![Project Maintenance][maintenance-shield]
-[![GitHub Activity][commits-shield]][commits]
 
 
-## Track Updates
-
-This custom card can be tracked with the help of [custom-updater](https://github.com/custom-components/custom_updater).
-
-In your configuration.yaml
-
-```yaml
-custom_updater:
-  card_urls:
-    - https://raw.githubusercontent.com/ljmerza/tracking-number-card/master/custom_updater.json
-```
-
-## Usage
+## Installation through [HACS](https://github.com/custom-components/hacs)
+---
 You will need the [Email Sensor](https://github.com/ljmerza/ha-email-sensor) installed.
-
-## Options
-
-| Name | Type | Requirement | Description
-| ---- | ---- | ------- | -----------
-| type | string | **Required** | `custom:tracking-number-card`
-| header | string | **Optional** | `Tracking Numbers` Header of card
-| showHeader | boolean | **Optional** | `true` Hide header
-| hideWhenEmpty  | boolean | **Optional** | `false` Hide card when no tracking numbers found
-
-## Configuration
-Download `tracking-number-card.js` from the [latest release](https://github.com/ljmerza/tracking-number-card/releases/latest) and upload it your /www folder of your Home Assistant config directory.
-
-In your ui-lovelace.yaml
+Add the following to resources in your lovelace config:
 
 ```yaml
 resources:
-  - url: /local/tracking-number-card.js?track=true
-    type: js
+  - url: /community_plugin/tracking-number-card/tracking-number-card.js
 ```
 
-Add the custom card to views:
-
+## Configurations:
+---
 ```yaml
 views:
   - type: custom:tracking-number-card
     entities:
       - sensor.email_ljmerzagmailcom
 ```
+
+## Options:
+---
+| Name | Type | Requirement | Description
+| ---- | ---- | ------- | -----------
+| type | string | **Required** | `custom:tracking-number-card`
+| header | string | **Optional** | `Tracking Numbers` Header of card
+| showHeader | boolean | **Optional** | `true` Hide header
+| hideWhenEmpty  | boolean | **Optional** | `false` Hide card when no tracking numbers found
 
 ---
 
