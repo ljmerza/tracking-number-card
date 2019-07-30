@@ -11,6 +11,7 @@ Add the following to resources in your lovelace config:
 ```yaml
 resources:
   - url: /community_plugin/tracking-number-card/tracking-number-card.js
+    type: js
 ```
 
 ## Configurations:
