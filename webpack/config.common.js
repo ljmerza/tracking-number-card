@@ -1,5 +1,6 @@
 const path = require('path');
 
+
 module.exports = {
     entry: './src/index.js',
     devtool: 'source-map',
@@ -15,7 +16,10 @@ module.exports = {
                     /node_modules(?:\/|\\)lit-element|lit-html/
                 ],
                 use: {
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
                 }
             }
         ]

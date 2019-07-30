@@ -1,4 +1,6 @@
+import "core-js/stable";
 import { LitElement, html } from 'lit-element';
+
 import style from './style';
 import defaultConfig from './defaults';
 
@@ -20,7 +22,6 @@ class TrackingNumberCard extends LitElement {
   }
 
   setConfig(config) {
-
     if (!config.entities) throw new Error('Entities is required');
     if (config.entities && !Array.isArray(config.entities)) throw new Error('entities must be a list');
 
