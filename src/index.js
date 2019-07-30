@@ -1,4 +1,6 @@
 import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 import { LitElement, html } from 'lit-element';
 
 import style from './style';
