@@ -15,8 +15,7 @@
     "author": "Leonardo Merza <ljmerza@gmail.com>",
     "license": "MIT",
     "dependencies": {
-        "@babel/runtime": "^7.5.5",
-        "core-js": "^3.1.4",
+        "@babel/polyfill": "^7.4.4",
         "lit-element": "^2.2.1"
     },
     "devDependencies": {
@@ -32,7 +31,7 @@
         "webpack-merge": "^4.2.1"
     },
     "scripts": {
-        "lint": "eslint --fix ./src",
+        "lint": "eslint  --fix ./src",
         "start": "webpack --watch --config webpack/config.dev.js",
         "build": "webpack --config webpack/config.prod.js"
     }
