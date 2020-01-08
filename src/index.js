@@ -148,15 +148,18 @@ class TrackingNumberCard extends LitElement {
       let origin = '';
       const number = trackerNumber.number;
 
+      const isNumber = !isNaN(number);
+      const length = isNumber && number.toString().length;
+
       if (/^1Z/.test(number)) {
         link = `https://www.ups.com/track?loc=en_US&tracknum=${number}`;
         origin = 'UPS';
 
-      } else if (!isNaN(number) && (number.toString().length === 12 || number.toString().length === 15)){
+      } else if (isNumber && (length === 12 || length === 15 || length === 20)){
         link = `https://www.fedex.com/apps/fedextrack/?tracknumbers=${number}`;
         origin = 'FedEx';
 
-      } else if (!isNaN(number) && number.toString().length === 22) {
+      } else if (isNumber && length === 22) {
         link = `https://tools.usps.com/go/TrackConfirmAction?tLabels=${number}`;
         origin = 'USPS';
 
