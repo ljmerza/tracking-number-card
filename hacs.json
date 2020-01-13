@@ -1,4 +1,5 @@
 {
     "name": "Tracking Number Card",
-    "render_readme": true
+    "render_readme": true,
+    "filename": "dist/tracking-number-card.js"
 }
