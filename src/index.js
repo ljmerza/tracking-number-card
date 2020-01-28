@@ -10,6 +10,13 @@ import TrackingNumberCardEditor from './index-editor';
 customElements.define('tracking-number-card-editor', TrackingNumberCardEditor);
 
 
+const _TRACKING_NUMBER_CARD_URLS = {
+  ups: 'https://www.ups.com/track?loc=en_US&tracknum=',
+  usps: 'https://tools.usps.com/go/TrackConfirmAction?tLabels=',
+  fedex: 'https://www.fedex.com/apps/fedextrack/?tracknumbers=',
+  dhl: 'https://www.logistics.dhl/us-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=',
+}
+
 class TrackingNumberCard extends LitElement {
   static get properties() {
     return {
@@ -142,6 +149,7 @@ class TrackingNumberCard extends LitElement {
     return [...new Set(trackingNumbers)];
   }
 
+
   generateTrackingNumberLinks(trackingNumbers) {
     return trackingNumbers.map(trackerNumber => {
       let link = '';
@@ -152,22 +160,44 @@ class TrackingNumberCard extends LitElement {
       const length = isNumber && number.toString().length;
 
       if (/^1Z/.test(number)) {
-        link = `https://www.ups.com/track?loc=en_US&tracknum=${number}`;
+        link = `${_TRACKING_NUMBER_CARD_URLS.ups}${number}`;
         origin = 'UPS';
 
-      } else if (isNumber && (length === 12 || length === 15 || length === 20)){
-        link = `https://www.fedex.com/apps/fedextrack/?tracknumbers=${number}`;
-        origin = 'FedEx';
-
-      } else if (isNumber && length === 22) {
-        link = `https://tools.usps.com/go/TrackConfirmAction?tLabels=${number}`;
-        origin = 'USPS';
-
       } else if (/CN$/.test(number)) {
-        link = `https://tools.usps.com/go/TrackConfirmAction?tLabels=${number}`;
+        link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
         origin = 'USPS';
-      }
 
+      } else {
+        switch (trackerNumber.trackingOrigin) {
+          case 'ups':
+            link = `${_TRACKING_NUMBER_CARD_URLS.ups}${number}`;
+            origin = 'UPS';
+            break;
+          case 'fedex':
+            link = `${_TRACKING_NUMBER_CARD_URLS.fedex}${number}`;
+            origin = 'FedEx';
+            break;
+          case 'usps':
+            link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
+            origin = 'USPS';
+            break;
+          case 'dhl':
+            link = `${_TRACKING_NUMBER_CARD_URLS.dhl}${number}`;
+            origin = 'DHL';
+            break;
+          default:
+            if (isNumber && (length === 12 || length === 15 || length === 20)) {
+              link = `${_TRACKING_NUMBER_CARD_URLS.fedex}${number}`;
+              origin = 'FedEx';
+
+            } else if (isNumber && length === 22) {
+              link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
+              origin = 'USPS';
+            } 
+            break;
+        }
+      }
+      
       return { number, link, origin, trackingOrigin: trackerNumber.trackingOrigin};
     });
   }
