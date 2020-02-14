@@ -173,18 +173,22 @@ class TrackingNumberCard extends LitElement {
             link = `${_TRACKING_NUMBER_CARD_URLS.ups}${number}`;
             origin = 'UPS';
             break;
+            
           case 'fedex':
             link = `${_TRACKING_NUMBER_CARD_URLS.fedex}${number}`;
             origin = 'FedEx';
             break;
+
           case 'usps':
             link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
             origin = 'USPS';
             break;
+
           case 'dhl':
             link = `${_TRACKING_NUMBER_CARD_URLS.dhl}${number}`;
             origin = 'DHL';
             break;
+
           default:
             if (isNumber && (length === 12 || length === 15 || length === 20)) {
               link = `${_TRACKING_NUMBER_CARD_URLS.fedex}${number}`;
@@ -193,7 +197,11 @@ class TrackingNumberCard extends LitElement {
             } else if (isNumber && length === 22) {
               link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
               origin = 'USPS';
-            } 
+
+            } else if (length > 25) {
+              link = `${_TRACKING_NUMBER_CARD_URLS.dhl}${number}`;
+              origin = 'DHL';
+            }
             break;
         }
       }
