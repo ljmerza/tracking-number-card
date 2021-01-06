@@ -278,25 +278,17 @@ var xt="adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prot
                     ${this.entityOptions.map(t=>K`<paper-checkbox @checked-changed="${this._valueChanged}" .checked=${t.checked} .entityValue="${t.name}">${t.name}</paper-checkbox>`)}
                 </div>
             </div>
-    `:K``}_valueChanged(t){if(!this._config||!this.hass||!this._firstRendered)return;const{target:{configValue:e,value:n,entityValue:r},detail:{value:i}}=t;if(r)if(i){const t=Array.from(this._config.entities);t.push(r),this._config=Object.assign({},this._config,{entities:t})}else{const t=this._config.entities.filter(t=>t!==r);this._config=Object.assign({},this._config,{entities:t})}else this._config=void 0!==i||null!==i?Object.assign({},this._config,{[e]:i}):Object.assign({},this._config,{[e]:n});Ut(this,"config-changed",{config:this._config})}});const $t={ups:"https://www.ups.com/track?loc=en_US&tracknum=",usps:"https://tools.usps.com/go/TrackConfirmAction?tLabels=",fedex:"https://www.fedex.com/apps/fedextrack/?tracknumbers=",dhl:"https://www.logistics.dhl/us-en/home/tracking/tracking-parcel.html?submit=1&tracking-id="};customElements.define("tracking-number-card",class extends It{static get properties(){return{hass:Object,config:Object}}static async getConfigElement(){return document.createElement("tracking-number-card-editor")}setConfig(t){if(!t.entities)throw new Error("Entities is required");if(t.entities&&!Array.isArray(t.entities))throw new Error("entities must be a list");this.config={...Lt,...t}}getCardSize(){if(this.config){const t=this.config.showHeader&&this.config.header?1:0,e=this.getTrackingNumbers();return t+(e&&e.length||0)}return 1}static get styles(){return Rt}render(){const t=this.createHeader(),e=this.createBody();return this.config.hideWhenEmpty&&this.trackingNumbers&&0===this.trackingNumbers.length?K``:K`
-      <ha-card>
-        ${t}
-        ${e}
-      </ha-card>
-    `}createHeader(){return!1===this.config.showHeader?K``:K`
-      <div class='track-header'>
-        ${this.config.header}
-      </div>
-    `}createBody(){this.trackingNumbers=this.getTrackingNumbers();const t=this.generateTrackingNumberLinks(this.trackingNumbers).map(t=>{let e=`${t.origin}`;return t.origin.toLowerCase()!==t.trackingOrigin.toLowerCase()&&(t.trackingOrigin=t.trackingOrigin.replace(/_/g," "),e=`${t.origin} (${t.trackingOrigin})`),K`
-        <div class='track-row'>
-          <div class='track-row__number'>${t.number}</div>
-          <div class='track-row__link'>
-            <a href='${t.link}' target='_blank' rel="nofollow noreferrer noopener">${e}</a>
+    `:K``}_valueChanged(t){if(!this._config||!this.hass||!this._firstRendered)return;const{target:{configValue:e,value:n,entityValue:r},detail:{value:i}}=t;if(r)if(i){const t=Array.from(this._config.entities);t.push(r),this._config=Object.assign({},this._config,{entities:t})}else{const t=this._config.entities.filter(t=>t!==r);this._config=Object.assign({},this._config,{entities:t})}else this._config=void 0!==i||null!==i?Object.assign({},this._config,{[e]:i}):Object.assign({},this._config,{[e]:n});Ut(this,"config-changed",{config:this._config})}});const $t={ups:"https://www.ups.com/track?loc=en_US&tracknum=",usps:"https://tools.usps.com/go/TrackConfirmAction?tLabels=",fedex:"https://www.fedex.com/apps/fedextrack/?tracknumbers=",dhl:"https://www.logistics.dhl/us-en/home/tracking/tracking-parcel.html?submit=1&tracking-id="};customElements.define("tracking-number-card",class extends It{static get properties(){return{hass:Object,config:Object}}static async getConfigElement(){return document.createElement("tracking-number-card-editor")}setConfig(t){if(!t.entities)throw new Error("Entities is required");if(t.entities&&!Array.isArray(t.entities))throw new Error("entities must be a list");this.config={...Lt,...t}}getCardSize(){if(this.config){const t=this.config.showHeader&&this.config.header?1:0,e=this.getTrackingNumbers();return t+(e&&e.length||0)}return 1}static get styles(){return Rt}render(){const t=this.createHeader(),e=this.createBody();return this.config.hideWhenEmpty&&this.trackingNumbers&&0===this.trackingNumbers.length?K``:K` <ha-card> ${t} ${e} </ha-card> `}createHeader(){return!1===this.config.showHeader?K``:K` <div class="track-header">${this.config.header}</div> `}createBody(){this.trackingNumbers=this.getTrackingNumbers();const t=this.generateTrackingNumberLinks(this.trackingNumbers).map(t=>{let e=`${t.origin}`;return t.origin.toLowerCase()!==t.trackingOrigin.toLowerCase()&&(t.trackingOrigin=t.trackingOrigin.replace(/_/g," "),e=`${t.origin} (${t.trackingOrigin})`),K`
+        <div class="track-row">
+          <div class="track-row__number">${t.number}</div>
+          <div class="track-row__link">
+            <a
+              href="${t.link}"
+              target="_blank"
+              rel="nofollow noreferrer noopener"
+              >${e}</a
+            >
           </div>
         </div>
-      `});return K`
-      <div class='track-body'>
-        ${t}
-      </div>
-    `}getTrackingNumbers(){const t=this.config.entities.map(t=>this.hass.states[t]).filter(t=>!!t&&!!t.attributes&&!!t.attributes.tracking_numbers).reduce((t,e)=>(Object.keys(e.attributes.tracking_numbers).forEach(n=>{e.attributes.tracking_numbers[n].forEach(e=>{t.push({number:e,trackingOrigin:n})})}),t),[]);return[...new Set(t)]}generateTrackingNumberLinks(t){return t.map(t=>{let e="",n="";const r=t.number,i=!isNaN(r),o=i&&r.toString().length;if(/^1Z/.test(r))e=`${$t.ups}${r}`,n="UPS";else if(/CN$/.test(r))e=`${$t.usps}${r}`,n="USPS";else switch(t.trackingOrigin){case"ups":e=`${$t.ups}${r}`,n="UPS";break;case"fedex":e=`${$t.fedex}${r}`,n="FedEx";break;case"usps":e=`${$t.usps}${r}`,n="USPS";break;case"dhl":e=`${$t.dhl}${r}`,n="DHL";break;default:!i||12!==o&&15!==o&&20!==o?i&&22===o?(e=`${$t.usps}${r}`,n="USPS"):o>25&&(e=`${$t.dhl}${r}`,n="DHL"):(e=`${$t.fedex}${r}`,n="FedEx")}return{number:r,link:e,origin:n,trackingOrigin:t.trackingOrigin}})}})}]);
+      `});return K` <div class="track-body">${t}</div> `}getTrackingNumbers(){const t=this.config.entities.map(t=>this.hass.states[t]).filter(t=>!!t&&!!t.attributes&&!!t.attributes.tracking_numbers).reduce((t,e)=>(Object.keys(e.attributes.tracking_numbers).forEach(n=>{e.attributes.tracking_numbers[n].forEach(e=>{t.push({number:e,trackingOrigin:n})})}),t),[]);return[...new Set(t)]}generateTrackingNumberLinks(t){return t.map(t=>{let e="",n="";const r=t.number,i=!isNaN(r),o=i&&r.toString().length;if(/^1Z/.test(r))e=`${$t.ups}${r}`,n="UPS";else if(/CN$/.test(r))e=`${$t.usps}${r}`,n="USPS";else switch(t.trackingOrigin){case"ups":e=`${$t.ups}${r}`,n="UPS";break;case"fedex":e=`${$t.fedex}${r}`,n="FedEx";break;case"usps":e=`${$t.usps}${r}`,n="USPS";break;case"dhl":e=`${$t.dhl}${r}`,n="DHL";break;default:!i||12!==o&&15!==o&&20!==o?!i||22!==o&&26!==o?o>25&&(e=`${$t.dhl}${r}`,n="DHL"):(e=`${$t.usps}${r}`,n="USPS"):(e=`${$t.fedex}${r}`,n="FedEx")}return{number:r,link:e,origin:n,trackingOrigin:t.trackingOrigin}})}})}]);
 //# sourceMappingURL=tracking-number-card.js.map
