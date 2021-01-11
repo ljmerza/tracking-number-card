@@ -1,6 +1,6 @@
 {
     "name": "tracking-number-card",
-    "version": "1.2.8",
+    "version": "1.3.0",
     "description": "A tracking number card for Home Assistant Lovelace UI",
     "keywords": [
         "home-assistant",
