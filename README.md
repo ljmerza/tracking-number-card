@@ -9,15 +9,6 @@ Shows any shipping tracking numbers in your emails
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
 
 ## Installation through [HACS](https://github.com/hacs/integration)
----
-You will need the [Email Sensor](https://github.com/ljmerza/ha-email-sensor) installed.
-Add the following to resources in your lovelace config:
-
-```yaml
-resources:
-  - url: /community_plugin/tracking-number-card/tracking-number-card.js
-    type: js
-```
 
 ## Configurations:
 ---
