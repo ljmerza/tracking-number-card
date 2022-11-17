@@ -5,18 +5,6 @@ import { LitElement, html } from "lit-element";
 import style from "./style";
 import defaultConfig from "./defaults";
 
-import TrackingNumberCardEditor from "./index-editor";
-customElements.define("tracking-number-card-editor", TrackingNumberCardEditor);
-
-const _TRACKING_NUMBER_CARD_URLS = {
-  ups: "https://www.ups.com/track?loc=en_US&tracknum=",
-  usps: "https://tools.usps.com/go/TrackConfirmAction?tLabels=",
-  fedex: "https://www.fedex.com/apps/fedextrack/?tracknumbers=",
-  dhl:
-    "https://www.logistics.dhl/us-en/home/tracking/tracking-parcel.html?submit=1&tracking-id=",
-  swiss_post: `https://www.swisspost.ch/track?formattedParcelCodes=`,
-};
-
 class TrackingNumberCard extends LitElement {
   static get properties() {
     return {
@@ -25,15 +13,8 @@ class TrackingNumberCard extends LitElement {
     };
   }
 
-  static async getConfigElement() {
-    return document.createElement("tracking-number-card-editor");
-  }
-
   setConfig(config) {
-    if (!config.entities) throw new Error("Entities is required");
-    if (config.entities && !Array.isArray(config.entities))
-      throw new Error("entities must be a list");
-
+    if (!config.entity) throw Error('entity required.');
     this.config = { ...defaultConfig, ...config };
   }
 
@@ -44,7 +25,7 @@ class TrackingNumberCard extends LitElement {
   getCardSize() {
     if (this.config) {
       const headerSize = this.config.showHeader && this.config.header ? 1 : 0;
-      const trackingNumbers = this.getTrackingNumbers();
+      const trackingNumbers = this.formatTrackingNumbers();
       const bodySize = (trackingNumbers && trackingNumbers.length) || 0;
       return headerSize + bodySize;
     }
@@ -61,16 +42,15 @@ class TrackingNumberCard extends LitElement {
    * @return {TemplateResult}
    */
   render() {
-    const header = this.createHeader();
-    const body = this.createBody();
+    const trackingNumbers = this.formatTrackingNumbers();
 
     // if we want to hide and trackers is empty then hide card completely
-    if (
-      this.config.hideWhenEmpty &&
-      this.trackingNumbers &&
-      this.trackingNumbers.length === 0
-    )
+    if (this.config.hideWhenEmpty && trackingNumbers.length === 0) {
       return html``;
+    }
+
+    const header = this.createHeader();
+    const body = this.createBody(trackingNumbers);
 
     return html` <ha-card> ${header} ${body} </ha-card> `;
   }
@@ -85,21 +65,33 @@ class TrackingNumberCard extends LitElement {
     return html` <div class="track-header">${this.config.header}</div> `;
   }
 
-  createBody() {
-    this.trackingNumbers = this.getTrackingNumbers();
-    const trackingObjects = this.generateTrackingNumberLinks(
-      this.trackingNumbers
-    );
+  createBody(trackingNumbers) {
+    const shownTrackingNumbers = [];
 
-    const table = trackingObjects.map((tracker) => {
-      // only show origin email if not from tracking company
-      const linkText = tracker.trackingOrigin
-        ? `${tracker.origin} (${tracker.trackingOrigin})`
-        : `${tracker.origin}`;
+    const table = trackingNumbers.map((tracker) => {
+      // dont duplicate tracking numbers
+      if(shownTrackingNumbers.includes(tracker.tracking_number)) {
+        return html``;
+      } else {
+        shownTrackingNumbers.push(tracker.tracking_number);
+      }
+
+      let origin = '';
+      if(tracker.origin) {
+        origin = tracker.origin.toLowerCase().replace(/\.com/g, '');
+      }
+
+      let carrier = '';
+      if(tracker.carrier) {
+        carrier = tracker.carrier.toLowerCase().replace(/\.com/g, '');
+      }
+
+      const showOrigin = origin !== carrier;
+      const linkText = showOrigin ? `${origin} (${carrier})` : carrier;
 
       return html`
         <div class="track-row">
-          <div class="track-row__number">${tracker.number}</div>
+          <div class="track-row__number">${tracker.tracking_number}</div>
           <div class="track-row__link">
             <a
               href="${tracker.link}"
@@ -119,99 +111,22 @@ class TrackingNumberCard extends LitElement {
    * gets a list of unique tracking numbers
    * @return {string[]}
    */
-  getTrackingNumbers() {
-    const entities = this.config.entities
-      .map((entity) => this.hass.states[entity])
-      .filter((entity) => {
-        if (!entity) return false;
-        if (!entity.attributes) return false;
-        if (!entity.attributes.tracking_numbers) return false;
+  formatTrackingNumbers() {
+    if(!this.hass.states[this.config.entity]) throw Error('entity not found.');
+    const entityTrackingNumbers = this.hass.states[this.config.entity].attributes.tracking_numbers;
+    if(!entityTrackingNumbers)  throw Error('invalid entity.');
 
-        return true;
-      });
+    const trackingNumbers = Object.keys(entityTrackingNumbers).reduce((acc, curr) => {
+      const parserTrackingNumbers = entityTrackingNumbers[curr];
 
-    const trackingNumbers = entities.reduce((acc, entity) => {
-      const trackingOrigins = Object.keys(entity.attributes.tracking_numbers);
+      if(parserTrackingNumbers.length) {
+        acc.push(...parserTrackingNumbers);
+      }
 
-      trackingOrigins.forEach((trackingOrigin) => {
-        entity.attributes.tracking_numbers[trackingOrigin].forEach((number) => {
-          acc.push({ number, trackingOrigin });
-        });
-      });
-
-      return acc;
+      return acc
     }, []);
 
     return [...new Set(trackingNumbers)];
-  }
-
-  generateTrackingNumberLinks(trackingNumbers) {
-    return trackingNumbers.map((trackerNumber) => {
-      let link = "";
-      let origin = "";
-      const number = trackerNumber.number;
-
-      const isNumber = !isNaN(number);
-      const length = isNumber && number.toString().length;
-      let trackingOrigin = "";
-
-      if (/^1Z/.test(number)) {
-        link = `${_TRACKING_NUMBER_CARD_URLS.ups}${number}`;
-        origin = "UPS";
-      } else if (/CN$/.test(number)) {
-        link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
-        origin = "USPS";
-      } else {
-        switch (trackerNumber.trackingOrigin) {
-          case "ups":
-            link = `${_TRACKING_NUMBER_CARD_URLS.ups}${number}`;
-            origin = "UPS";
-            break;
-
-          case "fedex":
-            link = `${_TRACKING_NUMBER_CARD_URLS.fedex}${number}`;
-            origin = "FedEx";
-            break;
-
-          case "usps":
-            link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
-            origin = "USPS";
-            break;
-
-          case "dhl":
-            link = `${_TRACKING_NUMBER_CARD_URLS.dhl}${number}`;
-            origin = "DHL";
-            break;
-
-          case "swiss_post":
-            link = `${_TRACKING_NUMBER_CARD_URLS.swiss_post}${number}`;
-            origin = "Swiss Post";
-            break;
-
-          default:
-            trackingOrigin = trackerNumber.trackingOrigin.replace(/_/g, " ");
-
-            if (isNumber && (length === 12 || length === 15 || length === 20)) {
-              link = `${_TRACKING_NUMBER_CARD_URLS.fedex}${number}`;
-              origin = "FedEx";
-            } else if (isNumber && length === 22) {
-              link = `${_TRACKING_NUMBER_CARD_URLS.usps}${number}`;
-              origin = "USPS";
-            } else if (length > 25) {
-              link = `${_TRACKING_NUMBER_CARD_URLS.dhl}${number}`;
-              origin = "DHL";
-            }
-            break;
-        }
-      }
-
-      return {
-        number,
-        link,
-        origin,
-        trackingOrigin,
-      };
-    });
   }
 }
 
