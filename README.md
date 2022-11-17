@@ -11,7 +11,7 @@ Shows any shipping tracking numbers in your emails
 ## Installation through [HACS](https://github.com/hacs/integration)
 
 ## Configurations:
----
+
 ```yaml
 type: custom:tracking-number-card
 entity: sensor.email_ljmerzagmailcom
