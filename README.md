@@ -32,6 +32,7 @@ entities:
 | Name | Type | Requirement | Description
 | ---- | ---- | ------- | -----------
 | type | string | **Required** | `custom:tracking-number-card`
+| entity | string | **Required** | Entity of the email sensor
 | header | string | **Optional** | `Tracking Numbers` Header of card
 | showHeader | boolean | **Optional** | `true` Hide header
 | hideWhenEmpty  | boolean | **Optional** | `false` Hide card when no tracking numbers found
