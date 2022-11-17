@@ -23,8 +23,7 @@ resources:
 ---
 ```yaml
 type: custom:tracking-number-card
-entities:
-  - sensor.email_ljmerzagmailcom
+entity: sensor.email_ljmerzagmailcom
 ```
 
 ## Options:
