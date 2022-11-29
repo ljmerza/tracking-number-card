@@ -5,6 +5,7 @@ import { LitElement, html } from "lit-element";
 import style from "./style";
 import defaultConfig from "./defaults";
 
+
 class TrackingNumberCard extends LitElement {
   static get properties() {
     return {
@@ -84,6 +85,16 @@ class TrackingNumberCard extends LitElement {
       let carrier = '';
       if(tracker.carrier) {
         carrier = tracker.carrier.toLowerCase().replace(/\.com/g, '');
+
+        // get correct capitalization
+        const carrierMap = {
+          ups: 'UPS',
+          usps: 'USPS',
+          fedex: 'FedEx',
+          dhl: 'DHL',
+        }
+
+        if(carrierMap[carrier]) carrier = carrierMap[carrier]
       }
 
       const showOrigin = origin !== carrier;
