@@ -97,7 +97,7 @@ class TrackingNumberCard extends LitElement {
         if(carrierMap[carrier]) carrier = carrierMap[carrier]
       }
 
-      const showOrigin = origin !== carrier;
+      const showOrigin = (origin ? origin.toLowerCase() : '') !== (carrier ? carrier.toLowerCase() : '')
       const linkText = showOrigin ? `${origin} (${carrier})` : carrier;
 
       return html`
