@@ -1,38 +1,33 @@
 {
-    "name": "tracking-number-card",
-    "version": "3.0.4",
-    "description": "A tracking number card for Home Assistant Lovelace UI",
-    "keywords": [
-        "home-assistant",
-        "homeassistant",
-        "hass",
-        "automation",
-        "lovelace",
-        "custom-cards",
-        "tracking numbers"
-    ],
-    "repository": "git@github.com:ljmerza/tracking-number-card.git",
-    "author": "Leonardo Merza <ljmerza@gmail.com>",
-    "license": "MIT",
-    "dependencies": {
-        "@babel/polyfill": "^7.4.4",
-        "lit-element": "^2.2.1"
-    },
-    "devDependencies": {
-        "@babel/cli": "^7.5.5",
-        "@babel/core": "^7.5.5",
-        "@babel/preset-env": "^7.5.5",
-        "babel-loader": "^8.0.6",
-        "eslint": "^6.1.0",
-        "eslint-config-airbnb-base": "^13.2.0",
-        "eslint-plugin-import": "^2.18.2",
-        "webpack": "^4.38.0",
-        "webpack-cli": "^3.3.6",
-        "webpack-merge": "^4.2.1"
-    },
-    "scripts": {
-        "lint": "eslint --fix ./src",
-        "start": "webpack --watch --config webpack/config.dev.js",
-        "build": "webpack --config webpack/config.prod.js"
-    }
+  "name": "tracking-number-card",
+  "version": "4.0.0",
+  "description": "A modern Home Assistant card for displaying tracking numbers with clickable links",
+  "type": "module",
+  "main": "dist/tracking-number-card.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w",
+    "dev": "rollup -c -w"
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "custom-card",
+    "tracking"
+  ],
+  "repository": "git@github.com:ljmerza/tracking-number-card.git",
+  "author": "Leonardo Merza <ljmerza@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.9.6",
+    "tslib": "^2.6.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "lit": "^3.1.0"
+  }
 }

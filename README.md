@@ -1,42 +1,48 @@
-# Tracking Number Card for Home Assistant
-Shows any shipping tracking numbers in your emails
+# Tracking Number Card
 
-<img src='https://raw.githubusercontent.com/ljmerza/tracking-number-card/master/card.png' />
+A modern, customizable Home Assistant Lovelace card for displaying package tracking numbers with clickable links.
 
-[![GitHub Release][releases-shield]][releases]
-[![License][license-shield]](LICENSE.md)
-![Project Maintenance][maintenance-shield]
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg?style=for-the-badge)](https://github.com/hacs/integration)
+## Features
+
+- Clean, modern card design following Home Assistant design language
+- Visual configuration UI editor
+- Clickable tracking numbers that open package tracking pages
+- Copy tracking number to clipboard with one click
+- Display carrier information with icons
+- Show relative timestamps (e.g., "2 hours ago")
+- Summary statistics by carrier
+- Fully customizable sorting and display options
+- Responsive design for mobile and desktop
+- Full theme support (dark/light mode)
+- Empty state handling
+- Stylized console logging with version info
+
+## Installation
 
 ## Installation through [HACS](https://github.com/hacs/integration)
 
-## Configurations:
+### Configuration Options
 
-```yaml
-type: custom:tracking-number-card
-entity: sensor.email_ljmerzagmailcom
-```
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `entity` | string | **Required** | Entity ID with tracking number data |
+| `title` | string | Entity friendly name | Custom card title |
+| `show_summary` | boolean | `true` | Show summary statistics by carrier |
+| `show_carrier` | boolean | `true` | Display carrier information for each package |
+| `show_dates` | boolean | `true` | Show last updated timestamps |
+| `sort_by` | string | `last_updated` | Sort field: `first_seen`, `last_updated`, `carrier`, or `tracking_number` |
+| `sort_direction` | string | `desc` | Sort direction: `asc` or `desc` |
+| `max_items` | number | unlimited | Maximum number of packages to display |
 
-## Options:
----
-| Name | Type | Requirement | Description
-| ---- | ---- | ------- | -----------
-| type | string | **Required** | `custom:tracking-number-card`
-| entity | string | **Required** | Entity of the email sensor
-| header | string | **Optional** | `Tracking Numbers` Header of card
-| showHeader | boolean | **Optional** | `true` Hide header
-| hideWhenEmpty  | boolean | **Optional** | `false` Hide card when no tracking numbers found
+## Contributing
 
----
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Enjoy my card? Help me out for a couple of :beers: or a :coffee:!
+## License
 
-[![coffee](https://www.buymeacoffee.com/assets/img/custom_images/black_img.png)](https://www.buymeacoffee.com/JMISm06AD)
+MIT License - see LICENSE file for details
 
+## Support
 
-[commits-shield]: https://img.shields.io/github/commit-activity/y/ljmerza/tracking-number-card.svg?style=for-the-badge
-[commits]: https://github.com/ljmerza/tracking-number-card/commits/master
-[license-shield]: https://img.shields.io/github/license/ljmerza/tracking-number-card.svg?style=for-the-badge
-[maintenance-shield]: https://img.shields.io/badge/maintainer-Leonardo%20Merza%20%40ljmerza-blue.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/ljmerza/tracking-number-card.svg?style=for-the-badge
-[releases]: https://github.com/ljmerza/tracking-number-card/releases
+For issues, feature requests, or questions:
+- GitHub Issues: [tracking-number-card/issues](https://github.com/ljmerza/tracking-number-card/issues)

@@ -1,0 +1,72 @@
+# Example Lovelace card configurations for tracking-number-card
+
+# Basic Configuration
+# Shows all packages with default settings
+- type: custom:tracking-number-card
+  entity: sensor.tracking_numbers
+
+# Customized Display
+# Full-featured card with all options enabled
+- type: custom:tracking-number-card
+  entity: sensor.tracking_numbers
+  title: My Packages
+  show_summary: true
+  show_carrier: true
+  show_dates: true
+  sort_by: last_updated
+  sort_direction: desc
+
+# Minimal Configuration
+# Compact view without summary or extra details
+- type: custom:tracking-number-card
+  entity: sensor.tracking_numbers
+  title: Packages
+  show_summary: false
+  show_carrier: false
+  show_dates: false
+
+# Limited Display
+# Show only the 5 most recent packages
+- type: custom:tracking-number-card
+  entity: sensor.tracking_numbers
+  title: Recent Packages
+  max_items: 5
+  sort_by: last_updated
+  sort_direction: desc
+
+# Sorted by Carrier
+# Group and sort packages by carrier name
+- type: custom:tracking-number-card
+  entity: sensor.tracking_numbers
+  title: Packages by Carrier
+  sort_by: carrier
+  sort_direction: asc
+  show_summary: true
+
+# Example sensor configuration for testing
+# Add this to your configuration.yaml to create a test sensor
+
+# sensor:
+#   - platform: template
+#     sensors:
+#       tracking_numbers:
+#         friendly_name: "Test Tracking Numbers"
+#         value_template: "{{ states.sensor.tracking_numbers.attributes.count | default(0) }}"
+#         icon_template: "mdi:package-variant-closed"
+#         attribute_templates:
+#           packages:
+#             - tracking_number: "US3486245"
+#               carrier: "ui.com"
+#               origin: "ui.com"
+#               link: "https://example.com/tracking/US3486245"
+#               first_seen: "{{ now().isoformat() }}"
+#               last_updated: "{{ now().isoformat() }}"
+#               retailer_code: "ui_com"
+#               carrier_code: "ui.com"
+#           summary:
+#             by_carrier:
+#               ui.com: 1
+#             by_retailer:
+#               ui.com: 1
+#           count: 1
+#           last_update: "{{ now().isoformat() }}"
