@@ -1,6 +1,6 @@
 # Tracking Number Card
 
-A modern, customizable Home Assistant Lovelace card for displaying package tracking numbers with clickable links.
+A modern, customizable Home Assistant Lovelace card for displaying package tracking numbers with clickable links. Requires https://github.com/ljmerza/tracking-numbers custom integration
 
 <img src="card.png" alt="Tracking Number Card Screenshot" width="400"/>
 
