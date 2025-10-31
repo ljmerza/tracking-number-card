@@ -2,6 +2,8 @@
 
 A modern, customizable Home Assistant Lovelace card for displaying package tracking numbers with clickable links.
 
+<img src="card.png" alt="Tracking Number Card Screenshot" width="400"/>
+
 ## Features
 
 - Clean, modern card design following Home Assistant design language
