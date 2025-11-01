@@ -47,33 +47,52 @@ export function formatDateTime(dateString: string): string {
  */
 export function sortPackages(
   packages: Package[],
-  sortBy: string = 'last_updated',
+  sortBy: string = 'first_seen',
   sortDirection: 'asc' | 'desc' = 'desc'
 ): Package[] {
+  const resolveTimestamp = (...dates: Array<string | undefined>): number => {
+    for (const date of dates) {
+      if (!date) {
+        continue;
+      }
+
+      const value = new Date(date).getTime();
+      if (Number.isFinite(value)) {
+        return value;
+      }
+    }
+
+    return 0;
+  };
+
+  const resolveText = (value: string | undefined): string => {
+    return (value ?? '').toLowerCase();
+  };
+
   const sorted = [...packages].sort((a, b) => {
     let compareA: any;
     let compareB: any;
 
     switch (sortBy) {
       case 'first_seen':
-        compareA = new Date(a.first_seen).getTime();
-        compareB = new Date(b.first_seen).getTime();
+        compareA = resolveTimestamp(a.first_seen, a.last_updated);
+        compareB = resolveTimestamp(b.first_seen, b.last_updated);
         break;
       case 'last_updated':
-        compareA = new Date(a.last_updated).getTime();
-        compareB = new Date(b.last_updated).getTime();
+        compareA = resolveTimestamp(a.last_updated, a.first_seen);
+        compareB = resolveTimestamp(b.last_updated, b.first_seen);
         break;
       case 'carrier':
-        compareA = a.carrier.toLowerCase();
-        compareB = b.carrier.toLowerCase();
+        compareA = resolveText(a.carrier);
+        compareB = resolveText(b.carrier);
         break;
       case 'tracking_number':
-        compareA = a.tracking_number.toLowerCase();
-        compareB = b.tracking_number.toLowerCase();
+        compareA = resolveText(a.tracking_number);
+        compareB = resolveText(b.tracking_number);
         break;
       default:
-        compareA = new Date(a.last_updated).getTime();
-        compareB = new Date(b.last_updated).getTime();
+        compareA = resolveTimestamp(a.first_seen, a.last_updated);
+        compareB = resolveTimestamp(b.first_seen, b.last_updated);
     }
 
     if (compareA < compareB) return sortDirection === 'asc' ? -1 : 1;

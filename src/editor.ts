@@ -93,7 +93,13 @@ export class TrackingNumberCardEditor extends LitElement {
   `;
 
   public setConfig(config: TrackingNumberCardConfig): void {
-    this.config = config;
+    const normalizedConfig = { ...config };
+    const sortByValue = normalizedConfig.sort_by as string | undefined;
+    if (!sortByValue || sortByValue === 'last_updated') {
+      normalizedConfig.sort_by = 'first_seen';
+    }
+
+    this.config = normalizedConfig;
   }
 
   protected override render(): TemplateResult {
@@ -181,6 +187,19 @@ export class TrackingNumberCardEditor extends LitElement {
               @change=${(e: Event) => this._switchChanged(e, 'show_carrier')}
             ></ha-switch>
           </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Origin</div>
+              <div class="switch-description">
+                Display retailer or sender information when available
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_origin !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_origin')}
+            ></ha-switch>
+          </div>
         </div>
 
         <!-- Sorting Options -->
@@ -194,13 +213,12 @@ export class TrackingNumberCardEditor extends LitElement {
             </div>
             <ha-select
               .label=${'Sort By'}
-              .value=${this.config.sort_by || 'last_updated'}
-              @selected=${(ev: CustomEvent) => {
-                this._selectChanged(ev.detail.value, 'sort_by');
+              .value=${this.config.sort_by || 'first_seen'}
+              @selected=${(ev: Event) => {
+                this._selectChanged(ev, 'sort_by');
               }}
               @closed=${(e: Event) => e.stopPropagation()}
             >
-              <mwc-list-item value="last_updated">Last Updated</mwc-list-item>
               <mwc-list-item value="first_seen">First Seen</mwc-list-item>
               <mwc-list-item value="carrier">Carrier</mwc-list-item>
               <mwc-list-item value="tracking_number">Tracking Number</mwc-list-item>
@@ -215,8 +233,8 @@ export class TrackingNumberCardEditor extends LitElement {
             <ha-select
               .label=${'Sort Direction'}
               .value=${this.config.sort_direction || 'desc'}
-              @selected=${(ev: CustomEvent) => {
-                this._selectChanged(ev.detail.value, 'sort_direction');
+              @selected=${(ev: Event) => {
+                this._selectChanged(ev, 'sort_direction');
               }}
               @closed=${(e: Event) => e.stopPropagation()}
             >
@@ -296,8 +314,20 @@ export class TrackingNumberCardEditor extends LitElement {
     this.dispatchEvent(event);
   }
 
-  private _selectChanged(value: string, configValue: string): void {
+  private _selectChanged(ev: Event, configValue: string): void {
     if (!this.config || !this.hass) {
+      return;
+    }
+
+    const target = ev.target as { value?: string } | null;
+    const detailValue = (ev as CustomEvent).detail?.value;
+    let value = detailValue ?? target?.value;
+
+    if (value === 'last_updated') {
+      value = 'first_seen';
+    }
+
+    if (value === undefined) {
       return;
     }
 

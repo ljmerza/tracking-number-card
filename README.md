@@ -10,6 +10,8 @@ A modern, customizable Home Assistant Lovelace card for displaying package track
 - Visual configuration UI editor
 - Clickable tracking numbers that open package tracking pages
 - Copy tracking number to clipboard with one click
+- Add manual tracking numbers directly from the card
+- Remove or hide entries with a single click
 - Display carrier information with icons
 - Show relative timestamps (e.g., "2 hours ago")
 - Summary statistics by carrier
@@ -31,8 +33,9 @@ A modern, customizable Home Assistant Lovelace card for displaying package track
 | `title` | string | Entity friendly name | Custom card title |
 | `show_summary` | boolean | `true` | Show summary statistics by carrier |
 | `show_carrier` | boolean | `true` | Display carrier information for each package |
+| `show_origin` | boolean | `true` | Display retailer or sender information when available |
 | `show_dates` | boolean | `true` | Show last updated timestamps |
-| `sort_by` | string | `last_updated` | Sort field: `first_seen`, `last_updated`, `carrier`, or `tracking_number` |
+| `sort_by` | string | `first_seen` | Sort field: `first_seen`, `carrier`, or `tracking_number` |
 | `sort_direction` | string | `desc` | Sort direction: `asc` or `desc` |
 | `max_items` | number | unlimited | Maximum number of packages to display |
 

@@ -12,8 +12,9 @@
   title: My Packages
   show_summary: true
   show_carrier: true
+  show_origin: true
   show_dates: true
-  sort_by: last_updated
+  sort_by: first_seen
   sort_direction: desc
 
 # Minimal Configuration
@@ -23,6 +24,7 @@
   title: Packages
   show_summary: false
   show_carrier: false
+  show_origin: false
   show_dates: false
 
 # Limited Display
@@ -31,7 +33,7 @@
   entity: sensor.tracking_numbers
   title: Recent Packages
   max_items: 5
-  sort_by: last_updated
+  sort_by: first_seen
   sort_direction: desc
 
 # Sorted by Carrier

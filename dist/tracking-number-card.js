@@ -1,4 +1,4 @@
-function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPropertyDescriptor(e,i):s;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)n=Reflect.decorate(t,e,i,s);else for(var a=t.length-1;a>=0;a--)(r=t[a])&&(n=(o<3?r(n):o>3?r(e,i,n):r(e,i))||n);return o>3&&n&&Object.defineProperty(e,i,n),n}"function"==typeof SuppressedError&&SuppressedError;const e=globalThis,i=e.ShadowRoot&&(void 0===e.ShadyCSS||e.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s=Symbol(),r=new WeakMap;let o=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==s)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(i&&void 0===t){const i=void 0!==e&&1===e.length;i&&(t=r.get(e)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&r.set(e,t))}return t}toString(){return this.cssText}};const n=(t,...e)=>{const i=1===t.length?t[0]:e.reduce((e,i,s)=>e+(t=>{if(!0===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+t[s+1],t[0]);return new o(i,t,s)},a=i?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const i of t.cssRules)e+=i.cssText;return(t=>new o("string"==typeof t?t:t+"",void 0,s))(e)})(t):t,{is:c,defineProperty:l,getOwnPropertyDescriptor:d,getOwnPropertyNames:h,getOwnPropertySymbols:p,getPrototypeOf:u}=Object,g=globalThis,m=g.trustedTypes,f=m?m.emptyScript:"",v=g.reactiveElementPolyfillSupport,y=(t,e)=>t,_={toAttribute(t,e){switch(e){case Boolean:t=t?f:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let i=t;switch(e){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t)}catch(t){i=null}}return i}},$=(t,e)=>!c(t,e),b={attribute:!0,type:String,converter:_,reflect:!1,useDefault:!1,hasChanged:$};Symbol.metadata??=Symbol("metadata"),g.litPropertyMetadata??=new WeakMap;let x=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=b){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){const i=Symbol(),s=this.getPropertyDescriptor(t,i,e);void 0!==s&&l(this.prototype,t,s)}}static getPropertyDescriptor(t,e,i){const{get:s,set:r}=d(this.prototype,t)??{get(){return this[e]},set(t){this[e]=t}};return{get:s,set(e){const o=s?.call(this);r?.call(this,e),this.requestUpdate(t,o,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??b}static _$Ei(){if(this.hasOwnProperty(y("elementProperties")))return;const t=u(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(y("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(y("properties"))){const t=this.properties,e=[...h(t),...p(t)];for(const i of e)this.createProperty(i,t[i])}const t=this[Symbol.metadata];if(null!==t){const e=litPropertyMetadata.get(t);if(void 0!==e)for(const[t,i]of e)this.elementProperties.set(t,i)}this._$Eh=new Map;for(const[t,e]of this.elementProperties){const i=this._$Eu(t,e);void 0!==i&&this._$Eh.set(i,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const i=new Set(t.flat(1/0).reverse());for(const t of i)e.unshift(a(t))}else void 0!==t&&e.push(a(t));return e}static _$Eu(t,e){const i=e.attribute;return!1===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this))}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$EO?.delete(t)}_$E_(){const t=new Map,e=this.constructor.elementProperties;for(const i of e.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return((t,s)=>{if(i)t.adoptedStyleSheets=s.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(const i of s){const s=document.createElement("style"),r=e.litNonce;void 0!==r&&s.setAttribute("nonce",r),s.textContent=i.cssText,t.appendChild(s)}})(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(t=>t.hostConnected?.())}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.())}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$ET(t,e){const i=this.constructor.elementProperties.get(t),s=this.constructor._$Eu(t,i);if(void 0!==s&&!0===i.reflect){const r=(void 0!==i.converter?.toAttribute?i.converter:_).toAttribute(e,i.type);this._$Em=t,null==r?this.removeAttribute(s):this.setAttribute(s,r),this._$Em=null}}_$AK(t,e){const i=this.constructor,s=i._$Eh.get(t);if(void 0!==s&&this._$Em!==s){const t=i.getPropertyOptions(s),r="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:_;this._$Em=s;const o=r.fromAttribute(e,t.type);this[s]=o??this._$Ej?.get(s)??o,this._$Em=null}}requestUpdate(t,e,i){if(void 0!==t){const s=this.constructor,r=this[t];if(i??=s.getPropertyOptions(t),!((i.hasChanged??$)(r,e)||i.useDefault&&i.reflect&&r===this._$Ej?.get(t)&&!this.hasAttribute(s._$Eu(t,i))))return;this.C(t,e,i)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(t,e,{useDefault:i,reflect:s,wrapped:r},o){i&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,o??e??this[t]),!0!==r||void 0!==o)||(this._$AL.has(t)||(this.hasUpdated||i||(e=void 0),this._$AL.set(t,e)),!0===s&&this._$Em!==t&&(this._$Eq??=new Set).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(t){Promise.reject(t)}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,e]of this._$Ep)this[t]=e;this._$Ep=void 0}const t=this.constructor.elementProperties;if(t.size>0)for(const[e,i]of t){const{wrapped:t}=i,s=this[e];!0!==t||this._$AL.has(e)||void 0===s||this.C(e,void 0,i,s)}}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$EO?.forEach(t=>t.hostUpdate?.()),this.update(e)):this._$EM()}catch(e){throw t=!1,this._$EM(),e}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$EO?.forEach(t=>t.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&=this._$Eq.forEach(t=>this._$ET(t,this[t])),this._$EM()}updated(t){}firstUpdated(t){}};x.elementStyles=[],x.shadowRootOptions={mode:"open"},x[y("elementProperties")]=new Map,x[y("finalized")]=new Map,v?.({ReactiveElement:x}),(g.reactiveElementVersions??=[]).push("2.1.1");const w=globalThis,A=w.trustedTypes,k=A?A.createPolicy("lit-html",{createHTML:t=>t}):void 0,E="$lit$",S=`lit$${Math.random().toFixed(9).slice(2)}$`,C="?"+S,P=`<${C}>`,O=document,T=()=>O.createComment(""),U=t=>null===t||"object"!=typeof t&&"function"!=typeof t,M=Array.isArray,N="[ \t\n\f\r]",z=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,R=/-->/g,H=/>/g,D=RegExp(`>|${N}(?:([^\\s"'>=/]+)(${N}*=${N}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),j=/'/g,L=/"/g,I=/^(?:script|style|textarea|title)$/i,B=(t=>(e,...i)=>({_$litType$:t,strings:e,values:i}))(1),W=Symbol.for("lit-noChange"),F=Symbol.for("lit-nothing"),V=new WeakMap,q=O.createTreeWalker(O,129);function Y(t,e){if(!M(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==k?k.createHTML(e):e}const K=(t,e)=>{const i=t.length-1,s=[];let r,o=2===e?"<svg>":3===e?"<math>":"",n=z;for(let e=0;e<i;e++){const i=t[e];let a,c,l=-1,d=0;for(;d<i.length&&(n.lastIndex=d,c=n.exec(i),null!==c);)d=n.lastIndex,n===z?"!--"===c[1]?n=R:void 0!==c[1]?n=H:void 0!==c[2]?(I.test(c[2])&&(r=RegExp("</"+c[2],"g")),n=D):void 0!==c[3]&&(n=D):n===D?">"===c[0]?(n=r??z,l=-1):void 0===c[1]?l=-2:(l=n.lastIndex-c[2].length,a=c[1],n=void 0===c[3]?D:'"'===c[3]?L:j):n===L||n===j?n=D:n===R||n===H?n=z:(n=D,r=void 0);const h=n===D&&t[e+1].startsWith("/>")?" ":"";o+=n===z?i+P:l>=0?(s.push(a),i.slice(0,l)+E+i.slice(l)+S+h):i+S+(-2===l?e:h)}return[Y(t,o+(t[i]||"<?>")+(2===e?"</svg>":3===e?"</math>":"")),s]};class J{constructor({strings:t,_$litType$:e},i){let s;this.parts=[];let r=0,o=0;const n=t.length-1,a=this.parts,[c,l]=K(t,e);if(this.el=J.createElement(c,i),q.currentNode=this.el.content,2===e||3===e){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes)}for(;null!==(s=q.nextNode())&&a.length<n;){if(1===s.nodeType){if(s.hasAttributes())for(const t of s.getAttributeNames())if(t.endsWith(E)){const e=l[o++],i=s.getAttribute(t).split(S),n=/([.?@])?(.*)/.exec(e);a.push({type:1,index:r,name:n[2],strings:i,ctor:"."===n[1]?tt:"?"===n[1]?et:"@"===n[1]?it:X}),s.removeAttribute(t)}else t.startsWith(S)&&(a.push({type:6,index:r}),s.removeAttribute(t));if(I.test(s.tagName)){const t=s.textContent.split(S),e=t.length-1;if(e>0){s.textContent=A?A.emptyScript:"";for(let i=0;i<e;i++)s.append(t[i],T()),q.nextNode(),a.push({type:2,index:++r});s.append(t[e],T())}}}else if(8===s.nodeType)if(s.data===C)a.push({type:2,index:r});else{let t=-1;for(;-1!==(t=s.data.indexOf(S,t+1));)a.push({type:7,index:r}),t+=S.length-1}r++}}static createElement(t,e){const i=O.createElement("template");return i.innerHTML=t,i}}function Z(t,e,i=t,s){if(e===W)return e;let r=void 0!==s?i._$Co?.[s]:i._$Cl;const o=U(e)?void 0:e._$litDirective$;return r?.constructor!==o&&(r?._$AO?.(!1),void 0===o?r=void 0:(r=new o(t),r._$AT(t,i,s)),void 0!==s?(i._$Co??=[])[s]=r:i._$Cl=r),void 0!==r&&(e=Z(t,r._$AS(t,e.values),r,s)),e}class G{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:i}=this._$AD,s=(t?.creationScope??O).importNode(e,!0);q.currentNode=s;let r=q.nextNode(),o=0,n=0,a=i[0];for(;void 0!==a;){if(o===a.index){let e;2===a.type?e=new Q(r,r.nextSibling,this,t):1===a.type?e=new a.ctor(r,a.name,a.strings,this,t):6===a.type&&(e=new st(r,this,t)),this._$AV.push(e),a=i[++n]}o!==a?.index&&(r=q.nextNode(),o++)}return q.currentNode=O,s}p(t){let e=0;for(const i of this._$AV)void 0!==i&&(void 0!==i.strings?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}}class Q{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,i,s){this.type=2,this._$AH=F,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=s,this._$Cv=s?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return void 0!==e&&11===t?.nodeType&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=Z(this,t,e),U(t)?t===F||null==t||""===t?(this._$AH!==F&&this._$AR(),this._$AH=F):t!==this._$AH&&t!==W&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):(t=>M(t)||"function"==typeof t?.[Symbol.iterator])(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==F&&U(this._$AH)?this._$AA.nextSibling.data=t:this.T(O.createTextNode(t)),this._$AH=t}$(t){const{values:e,_$litType$:i}=t,s="number"==typeof i?this._$AC(t):(void 0===i.el&&(i.el=J.createElement(Y(i.h,i.h[0]),this.options)),i);if(this._$AH?._$AD===s)this._$AH.p(e);else{const t=new G(s,this),i=t.u(this.options);t.p(e),this.T(i),this._$AH=t}}_$AC(t){let e=V.get(t.strings);return void 0===e&&V.set(t.strings,e=new J(t)),e}k(t){M(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let i,s=0;for(const r of t)s===e.length?e.push(i=new Q(this.O(T()),this.O(T()),this,this.options)):i=e[s],i._$AI(r),s++;s<e.length&&(this._$AR(i&&i._$AB.nextSibling,s),e.length=s)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t!==this._$AB;){const e=t.nextSibling;t.remove(),t=e}}setConnected(t){void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t))}}class X{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,s,r){this.type=1,this._$AH=F,this._$AN=void 0,this.element=t,this.name=e,this._$AM=s,this.options=r,i.length>2||""!==i[0]||""!==i[1]?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=F}_$AI(t,e=this,i,s){const r=this.strings;let o=!1;if(void 0===r)t=Z(this,t,e,0),o=!U(t)||t!==this._$AH&&t!==W,o&&(this._$AH=t);else{const s=t;let n,a;for(t=r[0],n=0;n<r.length-1;n++)a=Z(this,s[i+n],e,n),a===W&&(a=this._$AH[n]),o||=!U(a)||a!==this._$AH[n],a===F?t=F:t!==F&&(t+=(a??"")+r[n+1]),this._$AH[n]=a}o&&!s&&this.j(t)}j(t){t===F?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class tt extends X{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===F?void 0:t}}class et extends X{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==F)}}class it extends X{constructor(t,e,i,s,r){super(t,e,i,s,r),this.type=5}_$AI(t,e=this){if((t=Z(this,t,e,0)??F)===W)return;const i=this._$AH,s=t===F&&i!==F||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,r=t!==F&&(i===F||s);s&&this.element.removeEventListener(this.name,this,i),r&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}}class st{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){Z(this,t)}}const rt=w.litHtmlPolyfillSupport;rt?.(J,Q),(w.litHtmlVersions??=[]).push("3.3.1");const ot=globalThis;class nt extends x{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=((t,e,i)=>{const s=i?.renderBefore??e;let r=s._$litPart$;if(void 0===r){const t=i?.renderBefore??null;s._$litPart$=r=new Q(e.insertBefore(T(),t),t,void 0,i??{})}return r._$AI(t),r})(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return W}}nt._$litElement$=!0,nt.finalized=!0,ot.litElementHydrateSupport?.({LitElement:nt});const at=ot.litElementPolyfillSupport;at?.({LitElement:nt}),(ot.litElementVersions??=[]).push("4.2.1");const ct=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}):customElements.define(t,e)},lt={attribute:!0,type:String,converter:_,reflect:!1,hasChanged:$},dt=(t=lt,e,i)=>{const{kind:s,metadata:r}=i;let o=globalThis.litPropertyMetadata.get(r);if(void 0===o&&globalThis.litPropertyMetadata.set(r,o=new Map),"setter"===s&&((t=Object.create(t)).wrapped=!0),o.set(i.name,t),"accessor"===s){const{name:s}=i;return{set(i){const r=e.get.call(this);e.set.call(this,i),this.requestUpdate(s,r,t)},init(e){return void 0!==e&&this.C(s,void 0,t,e),e}}}if("setter"===s){const{name:s}=i;return function(i){const r=this[s];e.call(this,i),this.requestUpdate(s,r,t)}}throw Error("Unsupported decorator location: "+s)};function ht(t){return(e,i)=>"object"==typeof i?dt(t,e,i):((t,e,i)=>{const s=e.hasOwnProperty(i);return e.constructor.createProperty(i,t),s?Object.getOwnPropertyDescriptor(e,i):void 0})(t,e,i)}const pt=n`
+function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPropertyDescriptor(e,i):s;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)n=Reflect.decorate(t,e,i,s);else for(var a=t.length-1;a>=0;a--)(r=t[a])&&(n=(o<3?r(n):o>3?r(e,i,n):r(e,i))||n);return o>3&&n&&Object.defineProperty(e,i,n),n}"function"==typeof SuppressedError&&SuppressedError;const e=globalThis,i=e.ShadowRoot&&(void 0===e.ShadyCSS||e.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s=Symbol(),r=new WeakMap;let o=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==s)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o;const e=this.t;if(i&&void 0===t){const i=void 0!==e&&1===e.length;i&&(t=r.get(e)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&r.set(e,t))}return t}toString(){return this.cssText}};const n=(t,...e)=>{const i=1===t.length?t[0]:e.reduce((e,i,s)=>e+(t=>{if(!0===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+t[s+1],t[0]);return new o(i,t,s)},a=i?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const i of t.cssRules)e+=i.cssText;return(t=>new o("string"==typeof t?t:t+"",void 0,s))(e)})(t):t,{is:c,defineProperty:d,getOwnPropertyDescriptor:l,getOwnPropertyNames:h,getOwnPropertySymbols:p,getPrototypeOf:u}=Object,g=globalThis,m=g.trustedTypes,f=m?m.emptyScript:"",v=g.reactiveElementPolyfillSupport,b=(t,e)=>t,y={toAttribute(t,e){switch(e){case Boolean:t=t?f:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let i=t;switch(e){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t)}catch(t){i=null}}return i}},_=(t,e)=>!c(t,e),$={attribute:!0,type:String,converter:y,reflect:!1,useDefault:!1,hasChanged:_};Symbol.metadata??=Symbol("metadata"),g.litPropertyMetadata??=new WeakMap;let x=class extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=$){if(e.state&&(e.attribute=!1),this._$Ei(),this.prototype.hasOwnProperty(t)&&((e=Object.create(e)).wrapped=!0),this.elementProperties.set(t,e),!e.noAccessor){const i=Symbol(),s=this.getPropertyDescriptor(t,i,e);void 0!==s&&d(this.prototype,t,s)}}static getPropertyDescriptor(t,e,i){const{get:s,set:r}=l(this.prototype,t)??{get(){return this[e]},set(t){this[e]=t}};return{get:s,set(e){const o=s?.call(this);r?.call(this,e),this.requestUpdate(t,o,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??$}static _$Ei(){if(this.hasOwnProperty(b("elementProperties")))return;const t=u(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(b("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(b("properties"))){const t=this.properties,e=[...h(t),...p(t)];for(const i of e)this.createProperty(i,t[i])}const t=this[Symbol.metadata];if(null!==t){const e=litPropertyMetadata.get(t);if(void 0!==e)for(const[t,i]of e)this.elementProperties.set(t,i)}this._$Eh=new Map;for(const[t,e]of this.elementProperties){const i=this._$Eu(t,e);void 0!==i&&this._$Eh.set(i,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){const e=[];if(Array.isArray(t)){const i=new Set(t.flat(1/0).reverse());for(const t of i)e.unshift(a(t))}else void 0!==t&&e.push(a(t));return e}static _$Eu(t,e){const i=e.attribute;return!1===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this))}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$EO?.delete(t)}_$E_(){const t=new Map,e=this.constructor.elementProperties;for(const i of e.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t)}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return((t,s)=>{if(i)t.adoptedStyleSheets=s.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(const i of s){const s=document.createElement("style"),r=e.litNonce;void 0!==r&&s.setAttribute("nonce",r),s.textContent=i.cssText,t.appendChild(s)}})(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(t=>t.hostConnected?.())}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.())}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$ET(t,e){const i=this.constructor.elementProperties.get(t),s=this.constructor._$Eu(t,i);if(void 0!==s&&!0===i.reflect){const r=(void 0!==i.converter?.toAttribute?i.converter:y).toAttribute(e,i.type);this._$Em=t,null==r?this.removeAttribute(s):this.setAttribute(s,r),this._$Em=null}}_$AK(t,e){const i=this.constructor,s=i._$Eh.get(t);if(void 0!==s&&this._$Em!==s){const t=i.getPropertyOptions(s),r="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:y;this._$Em=s;const o=r.fromAttribute(e,t.type);this[s]=o??this._$Ej?.get(s)??o,this._$Em=null}}requestUpdate(t,e,i){if(void 0!==t){const s=this.constructor,r=this[t];if(i??=s.getPropertyOptions(t),!((i.hasChanged??_)(r,e)||i.useDefault&&i.reflect&&r===this._$Ej?.get(t)&&!this.hasAttribute(s._$Eu(t,i))))return;this.C(t,e,i)}!1===this.isUpdatePending&&(this._$ES=this._$EP())}C(t,e,{useDefault:i,reflect:s,wrapped:r},o){i&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,o??e??this[t]),!0!==r||void 0!==o)||(this._$AL.has(t)||(this.hasUpdated||i||(e=void 0),this._$AL.set(t,e)),!0===s&&this._$Em!==t&&(this._$Eq??=new Set).add(t))}async _$EP(){this.isUpdatePending=!0;try{await this._$ES}catch(t){Promise.reject(t)}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,e]of this._$Ep)this[t]=e;this._$Ep=void 0}const t=this.constructor.elementProperties;if(t.size>0)for(const[e,i]of t){const{wrapped:t}=i,s=this[e];!0!==t||this._$AL.has(e)||void 0===s||this.C(e,void 0,i,s)}}let t=!1;const e=this._$AL;try{t=this.shouldUpdate(e),t?(this.willUpdate(e),this._$EO?.forEach(t=>t.hostUpdate?.()),this.update(e)):this._$EM()}catch(e){throw t=!1,this._$EM(),e}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$EO?.forEach(t=>t.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EM(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Eq&&=this._$Eq.forEach(t=>this._$ET(t,this[t])),this._$EM()}updated(t){}firstUpdated(t){}};x.elementStyles=[],x.shadowRootOptions={mode:"open"},x[b("elementProperties")]=new Map,x[b("finalized")]=new Map,v?.({ReactiveElement:x}),(g.reactiveElementVersions??=[]).push("2.1.1");const k=globalThis,w=k.trustedTypes,A=w?w.createPolicy("lit-html",{createHTML:t=>t}):void 0,E="$lit$",S=`lit$${Math.random().toFixed(9).slice(2)}$`,C="?"+S,P=`<${C}>`,T=document,O=()=>T.createComment(""),U=t=>null===t||"object"!=typeof t&&"function"!=typeof t,z=Array.isArray,D="[ \t\n\f\r]",M=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,R=/-->/g,N=/>/g,H=RegExp(`>|${D}(?:([^\\s"'>=/]+)(${D}*=${D}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),F=/'/g,j=/"/g,L=/^(?:script|style|textarea|title)$/i,I=(t=>(e,...i)=>({_$litType$:t,strings:e,values:i}))(1),q=Symbol.for("lit-noChange"),B=Symbol.for("lit-nothing"),V=new WeakMap,W=T.createTreeWalker(T,129);function Y(t,e){if(!z(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==A?A.createHTML(e):e}const K=(t,e)=>{const i=t.length-1,s=[];let r,o=2===e?"<svg>":3===e?"<math>":"",n=M;for(let e=0;e<i;e++){const i=t[e];let a,c,d=-1,l=0;for(;l<i.length&&(n.lastIndex=l,c=n.exec(i),null!==c);)l=n.lastIndex,n===M?"!--"===c[1]?n=R:void 0!==c[1]?n=N:void 0!==c[2]?(L.test(c[2])&&(r=RegExp("</"+c[2],"g")),n=H):void 0!==c[3]&&(n=H):n===H?">"===c[0]?(n=r??M,d=-1):void 0===c[1]?d=-2:(d=n.lastIndex-c[2].length,a=c[1],n=void 0===c[3]?H:'"'===c[3]?j:F):n===j||n===F?n=H:n===R||n===N?n=M:(n=H,r=void 0);const h=n===H&&t[e+1].startsWith("/>")?" ":"";o+=n===M?i+P:d>=0?(s.push(a),i.slice(0,d)+E+i.slice(d)+S+h):i+S+(-2===d?e:h)}return[Y(t,o+(t[i]||"<?>")+(2===e?"</svg>":3===e?"</math>":"")),s]};class Z{constructor({strings:t,_$litType$:e},i){let s;this.parts=[];let r=0,o=0;const n=t.length-1,a=this.parts,[c,d]=K(t,e);if(this.el=Z.createElement(c,i),W.currentNode=this.el.content,2===e||3===e){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes)}for(;null!==(s=W.nextNode())&&a.length<n;){if(1===s.nodeType){if(s.hasAttributes())for(const t of s.getAttributeNames())if(t.endsWith(E)){const e=d[o++],i=s.getAttribute(t).split(S),n=/([.?@])?(.*)/.exec(e);a.push({type:1,index:r,name:n[2],strings:i,ctor:"."===n[1]?tt:"?"===n[1]?et:"@"===n[1]?it:X}),s.removeAttribute(t)}else t.startsWith(S)&&(a.push({type:6,index:r}),s.removeAttribute(t));if(L.test(s.tagName)){const t=s.textContent.split(S),e=t.length-1;if(e>0){s.textContent=w?w.emptyScript:"";for(let i=0;i<e;i++)s.append(t[i],O()),W.nextNode(),a.push({type:2,index:++r});s.append(t[e],O())}}}else if(8===s.nodeType)if(s.data===C)a.push({type:2,index:r});else{let t=-1;for(;-1!==(t=s.data.indexOf(S,t+1));)a.push({type:7,index:r}),t+=S.length-1}r++}}static createElement(t,e){const i=T.createElement("template");return i.innerHTML=t,i}}function J(t,e,i=t,s){if(e===q)return e;let r=void 0!==s?i._$Co?.[s]:i._$Cl;const o=U(e)?void 0:e._$litDirective$;return r?.constructor!==o&&(r?._$AO?.(!1),void 0===o?r=void 0:(r=new o(t),r._$AT(t,i,s)),void 0!==s?(i._$Co??=[])[s]=r:i._$Cl=r),void 0!==r&&(e=J(t,r._$AS(t,e.values),r,s)),e}class G{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:e},parts:i}=this._$AD,s=(t?.creationScope??T).importNode(e,!0);W.currentNode=s;let r=W.nextNode(),o=0,n=0,a=i[0];for(;void 0!==a;){if(o===a.index){let e;2===a.type?e=new Q(r,r.nextSibling,this,t):1===a.type?e=new a.ctor(r,a.name,a.strings,this,t):6===a.type&&(e=new st(r,this,t)),this._$AV.push(e),a=i[++n]}o!==a?.index&&(r=W.nextNode(),o++)}return W.currentNode=T,s}p(t){let e=0;for(const i of this._$AV)void 0!==i&&(void 0!==i.strings?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}}class Q{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,i,s){this.type=2,this._$AH=B,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=s,this._$Cv=s?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode;const e=this._$AM;return void 0!==e&&11===t?.nodeType&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){t=J(this,t,e),U(t)?t===B||null==t||""===t?(this._$AH!==B&&this._$AR(),this._$AH=B):t!==this._$AH&&t!==q&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):(t=>z(t)||"function"==typeof t?.[Symbol.iterator])(t)?this.k(t):this._(t)}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t))}_(t){this._$AH!==B&&U(this._$AH)?this._$AA.nextSibling.data=t:this.T(T.createTextNode(t)),this._$AH=t}$(t){const{values:e,_$litType$:i}=t,s="number"==typeof i?this._$AC(t):(void 0===i.el&&(i.el=Z.createElement(Y(i.h,i.h[0]),this.options)),i);if(this._$AH?._$AD===s)this._$AH.p(e);else{const t=new G(s,this),i=t.u(this.options);t.p(e),this.T(i),this._$AH=t}}_$AC(t){let e=V.get(t.strings);return void 0===e&&V.set(t.strings,e=new Z(t)),e}k(t){z(this._$AH)||(this._$AH=[],this._$AR());const e=this._$AH;let i,s=0;for(const r of t)s===e.length?e.push(i=new Q(this.O(O()),this.O(O()),this,this.options)):i=e[s],i._$AI(r),s++;s<e.length&&(this._$AR(i&&i._$AB.nextSibling,s),e.length=s)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t!==this._$AB;){const e=t.nextSibling;t.remove(),t=e}}setConnected(t){void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t))}}class X{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,s,r){this.type=1,this._$AH=B,this._$AN=void 0,this.element=t,this.name=e,this._$AM=s,this.options=r,i.length>2||""!==i[0]||""!==i[1]?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=B}_$AI(t,e=this,i,s){const r=this.strings;let o=!1;if(void 0===r)t=J(this,t,e,0),o=!U(t)||t!==this._$AH&&t!==q,o&&(this._$AH=t);else{const s=t;let n,a;for(t=r[0],n=0;n<r.length-1;n++)a=J(this,s[i+n],e,n),a===q&&(a=this._$AH[n]),o||=!U(a)||a!==this._$AH[n],a===B?t=B:t!==B&&(t+=(a??"")+r[n+1]),this._$AH[n]=a}o&&!s&&this.j(t)}j(t){t===B?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class tt extends X{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===B?void 0:t}}class et extends X{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==B)}}class it extends X{constructor(t,e,i,s,r){super(t,e,i,s,r),this.type=5}_$AI(t,e=this){if((t=J(this,t,e,0)??B)===q)return;const i=this._$AH,s=t===B&&i!==B||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,r=t!==B&&(i===B||s);s&&this.element.removeEventListener(this.name,this,i),r&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}}class st{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){J(this,t)}}const rt=k.litHtmlPolyfillSupport;rt?.(Z,Q),(k.litHtmlVersions??=[]).push("3.3.1");const ot=globalThis;class nt extends x{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=((t,e,i)=>{const s=i?.renderBefore??e;let r=s._$litPart$;if(void 0===r){const t=i?.renderBefore??null;s._$litPart$=r=new Q(e.insertBefore(O(),t),t,void 0,i??{})}return r._$AI(t),r})(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return q}}nt._$litElement$=!0,nt.finalized=!0,ot.litElementHydrateSupport?.({LitElement:nt});const at=ot.litElementPolyfillSupport;at?.({LitElement:nt}),(ot.litElementVersions??=[]).push("4.2.1");const ct=t=>(e,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(t,e)}):customElements.define(t,e)},dt={attribute:!0,type:String,converter:y,reflect:!1,hasChanged:_},lt=(t=dt,e,i)=>{const{kind:s,metadata:r}=i;let o=globalThis.litPropertyMetadata.get(r);if(void 0===o&&globalThis.litPropertyMetadata.set(r,o=new Map),"setter"===s&&((t=Object.create(t)).wrapped=!0),o.set(i.name,t),"accessor"===s){const{name:s}=i;return{set(i){const r=e.get.call(this);e.set.call(this,i),this.requestUpdate(s,r,t)},init(e){return void 0!==e&&this.C(s,void 0,t,e),e}}}if("setter"===s){const{name:s}=i;return function(i){const r=this[s];e.call(this,i),this.requestUpdate(s,r,t)}}throw Error("Unsupported decorator location: "+s)};function ht(t){return(e,i)=>"object"==typeof i?lt(t,e,i):((t,e,i)=>{const s=e.hasOwnProperty(i);return e.constructor.createProperty(i,t),s?Object.getOwnPropertyDescriptor(e,i):void 0})(t,e,i)}function pt(t){return ht({...t,state:!0,attribute:!1})}const ut=n`
   :host {
     display: block;
   }
@@ -22,6 +22,33 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
     align-items: center;
     gap: 12px;
     flex: 1;
+  }
+
+  .card-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    border-radius: 4px;
+  }
+
+  .add-button:hover {
+    color: var(--primary-color);
+    background: var(--divider-color);
+  }
+
+  .add-button ha-icon {
+    --mdc-icon-size: 20px;
   }
 
   .card-header ha-icon {
@@ -76,6 +103,49 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
     align-items: center;
     justify-content: space-between;
     margin-bottom: 8px;
+  }
+
+  .package-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .manual-badge {
+    background: var(--accent-color);
+    color: var(--text-primary-color);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .remove-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    border-radius: 4px;
+  }
+
+  .remove-button[disabled] {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .remove-button:hover {
+    color: var(--error-color);
+    background: var(--divider-color);
+  }
+
+  .remove-button ha-icon {
+    --mdc-icon-size: 18px;
   }
 
   .package-tracking {
@@ -196,6 +266,70 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
     max-width: 300px;
   }
 
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 24px 24px;
+  }
+
+  .dialog-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dialog-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .dialog-field label {
+    font-weight: 600;
+    color: var(--primary-text-color);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .dialog-field .required-marker {
+    color: var(--error-color);
+    font-size: 14px;
+  }
+
+  .dialog-input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--divider-color);
+    background: var(--card-background-color);
+    color: var(--primary-text-color);
+    font-size: 14px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .dialog-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+  }
+
+  .field-helper {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+  }
+
+  .dialog-error {
+    color: var(--error-color);
+    font-size: 14px;
+  }
+
+  .dialog-helper {
+    color: var(--secondary-text-color);
+    font-size: 13px;
+  }
+
   .summary-stats {
     display: flex;
     flex-wrap: wrap;
@@ -265,7 +399,7 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
       font-size: 14px;
     }
   }
-`;function ut(t){const e=t.toLowerCase(),i={ups:"mdi:package-variant",usps:"mdi:email",fedex:"mdi:truck-fast",dhl:"mdi:airplane",amazon:"mdi:amazon","ui.com":"mdi:package-variant-closed"};for(const[t,s]of Object.entries(i))if(e.includes(t))return s;return"mdi:package"}let gt=class extends nt{setConfig(t){this.config=t}render(){if(!this.hass||!this.config)return B``;const t=this._getTrackingNumberEntities();return B`
+`;function gt(t){const e=t.toLowerCase(),i={ups:"mdi:package-variant",usps:"mdi:email",fedex:"mdi:truck-fast",dhl:"mdi:airplane",amazon:"mdi:amazon","ui.com":"mdi:package-variant-closed"};for(const[t,s]of Object.entries(i))if(e.includes(t))return s;return"mdi:package"}let mt=class extends nt{setConfig(t){const e={...t},i=e.sort_by;i&&"last_updated"!==i||(e.sort_by="first_seen"),this.config=e}render(){if(!this.hass||!this.config)return I``;const t=this._getTrackingNumberEntities();return I`
       <div class="card-config">
         <!-- Entity Selection -->
         <div class="section">
@@ -282,7 +416,7 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
               .items=${t.map(t=>({value:t.entity_id,label:`${t.friendly_name} (${t.entity_id})`}))}
               @value-changed=${t=>{const e=t.detail.value;e&&this._comboBoxValueChanged(e,"entity")}}
             ></ha-combo-box>
-            ${0===t.length?B`
+            ${0===t.length?I`
                   <div class="no-entities">
                     No sensor entities ending with "_tracking_numbers" found.
                     Please ensure you have a tracking number integration configured.
@@ -333,6 +467,19 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
               @change=${t=>this._switchChanged(t,"show_carrier")}
             ></ha-switch>
           </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Origin</div>
+              <div class="switch-description">
+                Display retailer or sender information when available
+              </div>
+            </div>
+            <ha-switch
+              .checked=${!1!==this.config.show_origin}
+              @change=${t=>this._switchChanged(t,"show_origin")}
+            ></ha-switch>
+          </div>
         </div>
 
         <!-- Sorting Options -->
@@ -346,11 +493,10 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
             </div>
             <ha-select
               .label=${"Sort By"}
-              .value=${this.config.sort_by||"last_updated"}
-              @selected=${t=>{this._selectChanged(t.detail.value,"sort_by")}}
+              .value=${this.config.sort_by||"first_seen"}
+              @selected=${t=>{this._selectChanged(t,"sort_by")}}
               @closed=${t=>t.stopPropagation()}
             >
-              <mwc-list-item value="last_updated">Last Updated</mwc-list-item>
               <mwc-list-item value="first_seen">First Seen</mwc-list-item>
               <mwc-list-item value="carrier">Carrier</mwc-list-item>
               <mwc-list-item value="tracking_number">Tracking Number</mwc-list-item>
@@ -365,7 +511,7 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
             <ha-select
               .label=${"Sort Direction"}
               .value=${this.config.sort_direction||"desc"}
-              @selected=${t=>{this._selectChanged(t.detail.value,"sort_direction")}}
+              @selected=${t=>{this._selectChanged(t,"sort_direction")}}
               @closed=${t=>t.stopPropagation()}
             >
               <mwc-list-item value="desc">Newest First</mwc-list-item>
@@ -394,7 +540,7 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
           </div>
         </div>
       </div>
-    `}_getTrackingNumberEntities(){return this.hass?Object.keys(this.hass.states).filter(t=>t.startsWith("sensor.")&&t.endsWith("_tracking_numbers")).map(t=>({entity_id:t,friendly_name:this.hass.states[t].attributes.friendly_name||t})).sort((t,e)=>t.friendly_name.localeCompare(e.friendly_name)):[]}_comboBoxValueChanged(t,e){if(!this.config||!this.hass)return;if(this.config[e]===t)return;const i={...this.config,[e]:t};this.config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}_selectChanged(t,e){if(!this.config||!this.hass)return;if(this.config[e]===t)return;const i={...this.config,[e]:t};this.config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}_valueChanged(t,e){if(!this.config||!this.hass)return;const i=t.target;let s;if(s=""===i.value||void 0===i.value?void 0:"max_items"===e?i.value?parseInt(i.value,10):void 0:i.value,this.config[e]===s)return;const r={...this.config};void 0===s||""===s?delete r[e]:r[e]=s,this.config=r;const o=new CustomEvent("config-changed",{detail:{config:r},bubbles:!0,composed:!0});this.dispatchEvent(o)}_switchChanged(t,e){if(!this.config||!this.hass)return;const i=t.target.checked;if(this.config[e]===i)return;const s={...this.config,[e]:i};this.config=s;const r=new CustomEvent("config-changed",{detail:{config:s},bubbles:!0,composed:!0});this.dispatchEvent(r)}};gt.styles=n`
+    `}_getTrackingNumberEntities(){return this.hass?Object.keys(this.hass.states).filter(t=>t.startsWith("sensor.")&&t.endsWith("_tracking_numbers")).map(t=>({entity_id:t,friendly_name:this.hass.states[t].attributes.friendly_name||t})).sort((t,e)=>t.friendly_name.localeCompare(e.friendly_name)):[]}_comboBoxValueChanged(t,e){if(!this.config||!this.hass)return;if(this.config[e]===t)return;const i={...this.config,[e]:t};this.config=i;const s=new CustomEvent("config-changed",{detail:{config:i},bubbles:!0,composed:!0});this.dispatchEvent(s)}_selectChanged(t,e){if(!this.config||!this.hass)return;const i=t.target,s=t.detail?.value;let r=s??i?.value;if("last_updated"===r&&(r="first_seen"),void 0===r)return;if(this.config[e]===r)return;const o={...this.config,[e]:r};this.config=o;const n=new CustomEvent("config-changed",{detail:{config:o},bubbles:!0,composed:!0});this.dispatchEvent(n)}_valueChanged(t,e){if(!this.config||!this.hass)return;const i=t.target;let s;if(s=""===i.value||void 0===i.value?void 0:"max_items"===e?i.value?parseInt(i.value,10):void 0:i.value,this.config[e]===s)return;const r={...this.config};void 0===s||""===s?delete r[e]:r[e]=s,this.config=r;const o=new CustomEvent("config-changed",{detail:{config:r},bubbles:!0,composed:!0});this.dispatchEvent(o)}_switchChanged(t,e){if(!this.config||!this.hass)return;const i=t.target.checked;if(this.config[e]===i)return;const s={...this.config,[e]:i};this.config=s;const r=new CustomEvent("config-changed",{detail:{config:s},bubbles:!0,composed:!0});this.dispatchEvent(r)}};mt.styles=n`
     .card-config {
       display: flex;
       flex-direction: column;
@@ -477,38 +623,48 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
       font-size: 16px;
       margin-bottom: 12px;
     }
-  `,t([ht({attribute:!1})],gt.prototype,"hass",void 0),t([ht({attribute:!1})],gt.prototype,"config",void 0),gt=t([ct("tracking-number-card-editor")],gt);console.info("%c TRACKING-NUMBER-CARD %c v4.0.0 ","color: white; background: #039be5; font-weight: bold; padding: 2px 4px; border-radius: 3px 0 0 3px;","color: #039be5; background: white; font-weight: bold; padding: 2px 4px; border-radius: 0 3px 3px 0;");let mt=class extends nt{setConfig(t){if(!t.entity)throw new Error("You need to define an entity");this.config={show_summary:!0,show_carrier:!0,sort_by:"last_updated",sort_direction:"desc",...t}}getCardSize(){return 3}static getConfigElement(){return document.createElement("tracking-number-card-editor")}static getStubConfig(){return{type:"custom:tracking-number-card",entity:"",show_summary:!0,show_carrier:!0,sort_by:"last_updated",sort_direction:"desc"}}render(){if(!this.config||!this.hass)return B``;const t=this.hass.states[this.config.entity];if(!t)return this._renderError("Entity not found");const e=t.attributes,i=function(t,e="last_updated",i="desc"){const s=[...t].sort((t,s)=>{let r,o;switch(e){case"first_seen":r=new Date(t.first_seen).getTime(),o=new Date(s.first_seen).getTime();break;case"last_updated":default:r=new Date(t.last_updated).getTime(),o=new Date(s.last_updated).getTime();break;case"carrier":r=t.carrier.toLowerCase(),o=s.carrier.toLowerCase();break;case"tracking_number":r=t.tracking_number.toLowerCase(),o=s.tracking_number.toLowerCase()}return r<o?"asc"===i?-1:1:r>o?"asc"===i?1:-1:0});return s}(e.packages||[],this.config.sort_by,this.config.sort_direction),s=this.config.max_items?i.slice(0,this.config.max_items):i;return B`
+  `,t([ht({attribute:!1})],mt.prototype,"hass",void 0),t([ht({attribute:!1})],mt.prototype,"config",void 0),mt=t([ct("tracking-number-card-editor")],mt);console.info("%c TRACKING-NUMBER-CARD %c v4.0.0 ","color: white; background: #039be5; font-weight: bold; padding: 2px 4px; border-radius: 3px 0 0 3px;","color: #039be5; background: white; font-weight: bold; padding: 2px 4px; border-radius: 0 3px 3px 0;");let ft=class extends nt{constructor(){super(...arguments),this.showAddDialog=!1,this.isSubmitting=!1,this.addForm={tracking_number:"",link:"",carrier:"",origin:"",status:""},this.removingTracking={}}setConfig(t){if(!t.entity)throw new Error("You need to define an entity");const e={...t},i=e.sort_by;i&&"last_updated"!==i||(e.sort_by="first_seen"),this.config={show_summary:!0,show_carrier:!0,show_origin:!0,sort_by:"first_seen",sort_direction:"desc",...e}}getCardSize(){return 3}static getConfigElement(){return document.createElement("tracking-number-card-editor")}static getStubConfig(){return{type:"custom:tracking-number-card",entity:"",show_summary:!0,show_carrier:!0,show_origin:!0,sort_by:"first_seen",sort_direction:"desc"}}render(){if(!this.config||!this.hass)return I``;const t=this.hass.states[this.config.entity];if(!t)return this._renderError("Entity not found");const e=t.attributes,i=e.packages||[],s=this.config.sort_by,r=function(t,e="first_seen",i="desc"){const s=(...t)=>{for(const e of t){if(!e)continue;const t=new Date(e).getTime();if(Number.isFinite(t))return t}return 0},r=t=>(t??"").toLowerCase(),o=[...t].sort((t,o)=>{let n,a;switch(e){case"first_seen":default:n=s(t.first_seen,t.last_updated),a=s(o.first_seen,o.last_updated);break;case"last_updated":n=s(t.last_updated,t.first_seen),a=s(o.last_updated,o.first_seen);break;case"carrier":n=r(t.carrier),a=r(o.carrier);break;case"tracking_number":n=r(t.tracking_number),a=r(o.tracking_number)}return n<a?"asc"===i?-1:1:n>a?"asc"===i?1:-1:0});return o}(i,"last_updated"===s?"first_seen":s??"first_seen",this.config.sort_direction??"desc"),o=this.config.max_items?r.slice(0,this.config.max_items):r;return I`
       <ha-card>
         ${this._renderHeader(e)}
         ${this.config.show_summary?this._renderSummary(e):""}
         <div class="card-content">
-          ${s.length>0?this._renderPackageList(s):this._renderEmptyState()}
+          ${o.length>0?this._renderPackageList(o):this._renderEmptyState()}
         </div>
         ${this._renderFooter(e)}
+        ${this._renderAddDialog()}
       </ha-card>
-    `}_renderHeader(t){const e=this.config?.title||t.friendly_name||"Tracking Numbers",i=t.count||0,s=t.icon||"mdi:package-variant-closed";return B`
+    `}_renderHeader(t){const e=this.config?.title||t.friendly_name||"Tracking Numbers",i=t.count||0,s=t.icon||"mdi:package-variant-closed";return I`
       <div class="card-header">
         <div class="card-header-content">
           <ha-icon .icon=${s}></ha-icon>
           <h2 class="card-title">${e}</h2>
         </div>
-        <div class="card-count">${i}</div>
+          <div class="card-header-actions">
+            <div class="card-count">${i}</div>
+            <button
+              class="add-button"
+              title="Add tracking number"
+              @click=${this._openAddDialog}
+            >
+              <ha-icon icon="mdi:plus"></ha-icon>
+            </button>
+          </div>
       </div>
-    `}_renderSummary(t){if(!t.summary)return B``;const e=Object.entries(t.summary.by_carrier||{});return 0===e.length?B``:B`
+    `}_renderSummary(t){if(!t.summary)return I``;const e=Object.entries(t.summary.by_carrier||{});return 0===e.length?I``:I`
       <div class="summary-stats">
-        ${e.map(([t,e])=>B`
+        ${e.map(([t,e])=>I`
             <div class="stat-item">
-              <ha-icon .icon=${ut(t)}></ha-icon>
+              <ha-icon .icon=${gt(t)}></ha-icon>
               <span class="stat-label">${t}:</span>
               <span class="stat-value">${e}</span>
             </div>
           `)}
       </div>
-    `}_renderPackageList(t){return B`
+    `}_renderPackageList(t){return I`
       <div class="package-list">
         ${t.map(t=>this._renderPackageItem(t))}
       </div>
-    `}_renderPackageItem(t){return B`
+    `}_renderPackageItem(t){const e="manual"===t.source||"manual_entry"===t.retailer_code,i=this.removingTracking[t.tracking_number];return I`
       <div class="package-item">
         <div class="package-header">
           <div class="package-tracking">
@@ -530,20 +686,43 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
               <ha-icon icon="mdi:content-copy"></ha-icon>
             </button>
           </div>
+          <div class="package-header-actions">
+            ${e?I`<span class="manual-badge">Manual</span>`:""}
+            <button
+              class="remove-button"
+              title="Remove tracking number"
+              @click=${()=>this._handleRemove(t)}
+              ?disabled=${i}
+            >
+              <ha-icon icon="mdi:trash-can-outline"></ha-icon>
+            </button>
+          </div>
         </div>
         ${this._renderPackageDetails(t)}
       </div>
-    `}_renderPackageDetails(t){const e=[];return this.config?.show_carrier&&e.push(B`
+    `}_renderPackageDetails(t){const e=[];return this.config?.show_carrier&&e.push(I`
         <div class="package-detail">
-          <ha-icon .icon=${ut(t.carrier)}></ha-icon>
+          <ha-icon .icon=${gt(t.carrier)}></ha-icon>
           <span class="package-detail-label">Carrier:</span>
           <span class="package-detail-value">${t.carrier}</span>
         </div>
-      `),0===e.length?B``:B`
+      `),t.status&&e.push(I`
+        <div class="package-detail">
+          <ha-icon icon="mdi:information-outline"></ha-icon>
+          <span class="package-detail-label">Status:</span>
+          <span class="package-detail-value">${t.status}</span>
+        </div>
+      `),!1!==this.config?.show_origin&&t.origin&&"Unknown"!==t.origin&&e.push(I`
+        <div class="package-detail">
+          <ha-icon icon="mdi:store"></ha-icon>
+          <span class="package-detail-label">Origin:</span>
+          <span class="package-detail-value">${t.origin}</span>
+        </div>
+      `),0===e.length?I``:I`
       <div class="package-details">
         ${e}
       </div>
-    `}_renderEmptyState(){return B`
+    `}_renderEmptyState(){return I`
       <div class="empty-state">
         <ha-icon icon="mdi:package-variant"></ha-icon>
         <div class="empty-state-title">No packages to track</div>
@@ -551,12 +730,12 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
           When you have packages to track, they will appear here.
         </div>
       </div>
-    `}_renderFooter(t){return t.last_update?B`
+    `}_renderFooter(t){return t.last_update?I`
       <div class="card-footer">
         <ha-icon icon="mdi:update"></ha-icon>
         <span>Last synced: ${function(t){const e=new Date(t),i=new Date,s=i.getTime()-e.getTime(),r=Math.floor(s/1e3),o=Math.floor(r/60),n=Math.floor(o/60),a=Math.floor(n/24);return r<60?"just now":o<60?`${o} minute${1!==o?"s":""} ago`:n<24?`${n} hour${1!==n?"s":""} ago`:a<7?`${a} day${1!==a?"s":""} ago`:e.toLocaleDateString(void 0,{month:"short",day:"numeric",year:e.getFullYear()!==i.getFullYear()?"numeric":void 0})}(t.last_update)}</span>
       </div>
-    `:B``}_renderError(t){return B`
+    `:I``}_renderError(t){return I`
       <ha-card>
         <div class="card-header">
           <div class="card-header-content">
@@ -571,5 +750,64 @@ function t(t,e,i,s){var r,o=arguments.length,n=o<3?e:null===s?s=Object.getOwnPro
           </div>
         </div>
       </ha-card>
-    `}async _handleCopy(t){if(await async function(t){try{if(navigator.clipboard&&window.isSecureContext)return await navigator.clipboard.writeText(t),!0;{const e=document.createElement("textarea");e.value=t,e.style.position="fixed",e.style.left="-999999px",e.style.top="-999999px",document.body.appendChild(e),e.focus(),e.select();const i=document.execCommand("copy");return e.remove(),i}}catch(t){return console.error("Failed to copy text:",t),!1}}(t)){const e=new CustomEvent("hass-notification",{detail:{message:`Copied ${t} to clipboard`,duration:2e3},bubbles:!0,composed:!0});this.dispatchEvent(e)}}};mt.styles=pt,t([ht({attribute:!1})],mt.prototype,"hass",void 0),t([function(t){return ht({...t,state:!0,attribute:!1})}()],mt.prototype,"config",void 0),mt=t([ct("tracking-number-card")],mt),window.customCards=window.customCards||[],window.customCards.push({type:"tracking-number-card",name:"Tracking Number Card",description:"A modern card for displaying tracking numbers with clickable links",preview:!0,configurable:!0,documentationURL:"https://github.com/ljmerza/tracking-number-card"});export{mt as TrackingNumberCard};
+    `}async _handleCopy(t){await async function(t){try{if(navigator.clipboard&&window.isSecureContext)return await navigator.clipboard.writeText(t),!0;{const e=document.createElement("textarea");e.value=t,e.style.position="fixed",e.style.left="-999999px",e.style.top="-999999px",document.body.appendChild(e),e.focus(),e.select();const i=document.execCommand("copy");return e.remove(),i}}catch(t){return console.error("Failed to copy text:",t),!1}}(t)&&this._notify(`Copied ${t} to clipboard`)}_renderAddDialog(){if(!this.showAddDialog)return I``;return I`
+      <ha-dialog
+        open
+        heading="Add tracking number"
+        @closed=${this._handleDialogClosed}
+      >
+        <div class="dialog-content" slot="content">
+          <div class="dialog-fields">
+            <div class="dialog-field">
+              <label for="manual-tracking-number">
+                Tracking number <span class="required-marker">*</span>
+              </label>
+              <input
+                id="manual-tracking-number"
+                name="tracking_number"
+                class="dialog-input"
+                .value=${this.addForm.tracking_number}
+                placeholder="e.g. 1Z9999999999999999"
+                required
+                @input=${t=>this._handleFormInput(t,"tracking_number")}
+              />
+              <div class="field-helper">Required</div>
+            </div>
+            ${[{key:"link",label:"Tracking link",placeholder:"https://example.com/track"},{key:"carrier",label:"Carrier",placeholder:"UPS, USPS, FedEx…"},{key:"origin",label:"Origin",placeholder:"Retailer or sender"},{key:"status",label:"Status",placeholder:"Out for delivery"}].map(({key:t,label:e,placeholder:i})=>I`
+                <div class="dialog-field">
+                  <label for="manual-${t}">${e}</label>
+                  <input
+                    id="manual-${t}"
+                    name=${t}
+                    class="dialog-input"
+                    .value=${this.addForm[t]}
+                    placeholder=${i??""}
+                    @input=${e=>this._handleFormInput(e,t)}
+                  />
+                  <div class="field-helper">Optional</div>
+                </div>
+              `)}
+          </div>
+          <div class="dialog-helper">
+            * Required. Leave link empty to auto-generate one from the carrier.
+          </div>
+          ${this.addFormError?I`<div class="dialog-error">${this.addFormError}</div>`:""}
+        </div>
+        <mwc-button
+          slot="secondaryAction"
+          @click=${this._closeAddDialog}
+          ?disabled=${this.isSubmitting}
+        >
+          Cancel
+        </mwc-button>
+        <mwc-button
+          slot="primaryAction"
+          @click=${this._submitManualEntry}
+          ?disabled=${this.isSubmitting||!this.addForm.tracking_number.trim()}
+          raised
+        >
+          ${this.isSubmitting?"Saving…":"Add"}
+        </mwc-button>
+      </ha-dialog>
+    `}_handleFormInput(t,e){const i=t.target.value??"";this.addForm={...this.addForm,[e]:i}}_openAddDialog(){this.addForm={tracking_number:"",link:"",carrier:"",origin:"",status:""},this.addFormError=void 0,this.showAddDialog=!0,this.updateComplete.then(()=>{const t=this.renderRoot.querySelector("#manual-tracking-number");t?.focus?.()})}_closeAddDialog(){this.isSubmitting||(this.showAddDialog=!1)}_handleDialogClosed(){this.showAddDialog=!1}async _submitManualEntry(){if(!this.hass||!this.config)return;const t=this.addForm.tracking_number.trim(),e=this.renderRoot.querySelector("#manual-tracking-number");if(!t)return this.addFormError="Tracking number is required.",e?.setCustomValidity?.("Tracking number is required"),void e?.reportValidity?.();e?.setCustomValidity?.(""),e?.reportValidity?.(),this.isSubmitting=!0,this.addFormError=void 0;const i={entity_id:this.config.entity,tracking_number:t};["link","carrier","origin","status"].forEach(t=>{const e=this.addForm[t].trim();e&&(i[t]=e)});try{await this.hass.callService("tracking_numbers","add_manual_tracking_number",i),this._notify("Manual tracking number added"),this.showAddDialog=!1}catch(t){const e=t?.message||"Failed to add tracking number";this.addFormError=e,this._notify(e,!0)}finally{this.isSubmitting=!1}}_notify(t,e=!1){const i=new CustomEvent("hass-notification",{detail:{message:t,duration:2500,type:e?"error":"info"},bubbles:!0,composed:!0});this.dispatchEvent(i)}async _handleRemove(t){if(!this.hass||!this.config)return;const e=t.tracking_number;if(!this.removingTracking[e]){this.removingTracking={...this.removingTracking,[e]:!0};try{await this.hass.callService("tracking_numbers","remove_tracking_number",{entity_id:this.config.entity,tracking_number:e}),this._notify(`Removed ${e}`)}catch(t){const e=t?.message||"Failed to remove tracking number";this._notify(e,!0)}finally{const{[e]:t,...i}=this.removingTracking;this.removingTracking=i}}}};ft.styles=ut,t([ht({attribute:!1})],ft.prototype,"hass",void 0),t([pt()],ft.prototype,"config",void 0),t([pt()],ft.prototype,"showAddDialog",void 0),t([pt()],ft.prototype,"isSubmitting",void 0),t([pt()],ft.prototype,"addFormError",void 0),t([pt()],ft.prototype,"addForm",void 0),t([pt()],ft.prototype,"removingTracking",void 0),ft=t([ct("tracking-number-card")],ft),window.customCards=window.customCards||[],window.customCards.push({type:"tracking-number-card",name:"Tracking Number Card",description:"A modern card for displaying tracking numbers with clickable links",preview:!0,configurable:!0,documentationURL:"https://github.com/ljmerza/tracking-number-card"});export{ft as TrackingNumberCard};
 //# sourceMappingURL=tracking-number-card.js.map

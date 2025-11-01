@@ -26,6 +26,33 @@ export const styles = css`
     flex: 1;
   }
 
+  .card-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    border-radius: 4px;
+  }
+
+  .add-button:hover {
+    color: var(--primary-color);
+    background: var(--divider-color);
+  }
+
+  .add-button ha-icon {
+    --mdc-icon-size: 20px;
+  }
+
   .card-header ha-icon {
     color: var(--primary-color);
     --mdc-icon-size: 24px;
@@ -78,6 +105,49 @@ export const styles = css`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 8px;
+  }
+
+  .package-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .manual-badge {
+    background: var(--accent-color);
+    color: var(--text-primary-color);
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .remove-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--secondary-text-color);
+    border-radius: 4px;
+  }
+
+  .remove-button[disabled] {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .remove-button:hover {
+    color: var(--error-color);
+    background: var(--divider-color);
+  }
+
+  .remove-button ha-icon {
+    --mdc-icon-size: 18px;
   }
 
   .package-tracking {
@@ -196,6 +266,70 @@ export const styles = css`
   .empty-state-description {
     font-size: 14px;
     max-width: 300px;
+  }
+
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 24px 24px;
+  }
+
+  .dialog-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dialog-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .dialog-field label {
+    font-weight: 600;
+    color: var(--primary-text-color);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .dialog-field .required-marker {
+    color: var(--error-color);
+    font-size: 14px;
+  }
+
+  .dialog-input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--divider-color);
+    background: var(--card-background-color);
+    color: var(--primary-text-color);
+    font-size: 14px;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .dialog-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+  }
+
+  .field-helper {
+    font-size: 12px;
+    color: var(--secondary-text-color);
+  }
+
+  .dialog-error {
+    color: var(--error-color);
+    font-size: 14px;
+  }
+
+  .dialog-helper {
+    color: var(--secondary-text-color);
+    font-size: 13px;
   }
 
   .summary-stats {

@@ -21,7 +21,8 @@ export interface TrackingNumberCardConfig extends LovelaceCardConfig {
   title?: string;
   show_summary?: boolean;
   show_carrier?: boolean;
-  sort_by?: 'first_seen' | 'last_updated' | 'carrier' | 'tracking_number';
+  show_origin?: boolean;
+  sort_by?: 'first_seen' | 'carrier' | 'tracking_number';
   sort_direction?: 'asc' | 'desc';
   max_items?: number;
 }
@@ -35,6 +36,8 @@ export interface Package {
   last_updated: string;
   retailer_code: string;
   carrier_code: string;
+  status?: string;
+  source?: string;
 }
 
 export interface EntityAttributes {
