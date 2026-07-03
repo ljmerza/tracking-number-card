@@ -10,9 +10,11 @@ import {
 import {
   formatRelativeTime,
   formatDateTime,
+  formatDate,
   sortPackages,
   copyToClipboard,
-  getCarrierIcon
+  getCarrierIcon,
+  getStatusMeta
 } from './utils';
 import './editor';
 import { version } from '../package.json';
@@ -239,11 +241,33 @@ export class TrackingNumberCard extends LitElement {
     }
 
     if (pkg.status) {
+      const { className, icon } = getStatusMeta(pkg.delivery_status);
       details.push(html`
         <div class="package-detail">
-          <ha-icon icon="mdi:information-outline"></ha-icon>
-          <span class="package-detail-label">Status:</span>
-          <span class="package-detail-value">${pkg.status}</span>
+          <span class="status-chip ${className}">
+            <ha-icon icon=${icon}></ha-icon>
+            <span>${pkg.status}</span>
+          </span>
+        </div>
+      `);
+    }
+
+    if (pkg.estimated_delivery) {
+      details.push(html`
+        <div class="package-detail">
+          <ha-icon icon="mdi:calendar-clock"></ha-icon>
+          <span class="package-detail-label">Est. delivery:</span>
+          <span class="package-detail-value">${formatDate(pkg.estimated_delivery)}</span>
+        </div>
+      `);
+    }
+
+    if (pkg.status_updated) {
+      details.push(html`
+        <div class="package-detail">
+          <ha-icon icon="mdi:update"></ha-icon>
+          <span class="package-detail-label">Updated:</span>
+          <span class="package-detail-value">${formatRelativeTime(pkg.status_updated)}</span>
         </div>
       `);
     }
