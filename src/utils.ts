@@ -43,6 +43,48 @@ export function formatDateTime(dateString: string): string {
 }
 
 /**
+ * Format a date-only string (e.g. "2026-07-10") to a short readable date.
+ * Falls back to the original string if it can't be parsed.
+ */
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  if (!Number.isFinite(date.getTime())) {
+    return dateString;
+  }
+  const now = new Date();
+  return date.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+  });
+}
+
+/**
+ * Map a TrackingMore delivery_status enum to a chip CSS class and icon.
+ * Unknown/absent statuses get a neutral default.
+ */
+export function getStatusMeta(deliveryStatus?: string): { className: string; icon: string } {
+  switch ((deliveryStatus ?? '').toLowerCase()) {
+    case 'delivered':
+      return { className: 'status-delivered', icon: 'mdi:check-circle' };
+    case 'transit':
+    case 'pickup':
+      return { className: 'status-transit', icon: 'mdi:truck-fast' };
+    case 'pending':
+    case 'inforeceived':
+      return { className: 'status-pending', icon: 'mdi:clock-outline' };
+    case 'exception':
+    case 'undelivered':
+      return { className: 'status-exception', icon: 'mdi:alert-circle' };
+    case 'notfound':
+    case 'expired':
+      return { className: 'status-unknown', icon: 'mdi:help-circle' };
+    default:
+      return { className: 'status-default', icon: 'mdi:information-outline' };
+  }
+}
+
+/**
  * Sort packages based on configuration
  */
 export function sortPackages(

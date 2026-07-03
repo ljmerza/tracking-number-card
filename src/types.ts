@@ -37,6 +37,9 @@ export interface Package {
   retailer_code: string;
   carrier_code: string;
   status?: string;
+  delivery_status?: string;
+  estimated_delivery?: string;
+  status_updated?: string;
   source?: string;
 }
 

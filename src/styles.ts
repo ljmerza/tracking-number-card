@@ -225,6 +225,48 @@ export const styles = css`
     flex: 1;
   }
 
+  .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .status-chip ha-icon {
+    --mdc-icon-size: 16px;
+    color: inherit;
+  }
+
+  .status-chip.status-delivered {
+    color: var(--success-color, #2e7d32);
+    background: color-mix(in srgb, var(--success-color, #2e7d32) 15%, transparent);
+  }
+
+  .status-chip.status-transit {
+    color: var(--info-color, #0288d1);
+    background: color-mix(in srgb, var(--info-color, #0288d1) 15%, transparent);
+  }
+
+  .status-chip.status-pending {
+    color: var(--warning-color, #f9a825);
+    background: color-mix(in srgb, var(--warning-color, #f9a825) 15%, transparent);
+  }
+
+  .status-chip.status-exception {
+    color: var(--error-color, #c62828);
+    background: color-mix(in srgb, var(--error-color, #c62828) 15%, transparent);
+  }
+
+  .status-chip.status-unknown,
+  .status-chip.status-default {
+    color: var(--secondary-text-color);
+    background: var(--divider-color);
+  }
+
   .card-footer {
     display: flex;
     align-items: center;
