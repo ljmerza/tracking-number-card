@@ -67,6 +67,8 @@ export function getStatusMeta(deliveryStatus?: string): { className: string; ico
   switch ((deliveryStatus ?? '').toLowerCase()) {
     case 'delivered':
       return { className: 'status-delivered', icon: 'mdi:check-circle' };
+    case 'out_for_delivery':
+      return { className: 'status-out-for-delivery', icon: 'mdi:truck-delivery' };
     case 'transit':
     case 'pickup':
       return { className: 'status-transit', icon: 'mdi:truck-fast' };
