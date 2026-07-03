@@ -246,6 +246,11 @@ export const styles = css`
     background: color-mix(in srgb, var(--success-color, #2e7d32) 15%, transparent);
   }
 
+  .status-chip.status-out-for-delivery {
+    color: #0d9488;
+    background: color-mix(in srgb, #0d9488 15%, transparent);
+  }
+
   .status-chip.status-transit {
     color: var(--info-color, #0288d1);
     background: color-mix(in srgb, var(--info-color, #0288d1) 15%, transparent);
