@@ -46,7 +46,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## Release Process
 
 - Update the version in `package.json` and commit your changes.
-- Create and push a tag matching `v*` (for example, `git tag v4.1.0 && git push origin v4.1.0`).
+- Create and push a version tag, for example `git tag 4.2.2 && git push origin 4.2.2` (a `v`-prefixed tag such as `v4.2.2` also works).
 - The GitHub Actions workflow builds the distribution files and publishes a release with the generated assets.
 
 ## License

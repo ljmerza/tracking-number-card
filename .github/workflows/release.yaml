@@ -3,7 +3,8 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      - "[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   build-and-release:
@@ -33,6 +34,7 @@ jobs:
           mkdir -p release
           cp dist/tracking-number-card.js release/
           cp dist/tracking-number-card.js.map release/
+          gzip -9 -k -c dist/tracking-number-card.js > release/tracking-number-card.js.gz
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v2
