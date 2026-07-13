@@ -23,7 +23,24 @@ A modern, customizable Home Assistant Lovelace card for displaying package track
 
 ## Installation
 
+This card requires the [tracking-numbers](https://github.com/ljmerza/tracking-numbers) custom integration to be installed and exposing a sensor with tracking data. HACS is the recommended way to install the card.
+
 ## Installation through [HACS](https://github.com/hacs/integration)
+
+1. Open **HACS** in Home Assistant.
+2. Go to **Frontend**, click **Explore & Download Repositories**, and search for **Tracking Number Card**.
+3. Select it, click **Download**, and choose the latest version.
+4. Hard-refresh your browser (Ctrl/Cmd + Shift + R) to clear the cached module.
+
+HACS automatically registers the Lovelace resource `/hacsfiles/tracking-number-card/tracking-number-card.js`. If your dashboard is in YAML mode, add it yourself under **Settings → Dashboards → Resources** as a **JavaScript Module**.
+
+## Manual installation
+
+1. Download `tracking-number-card.js` from the [latest release](https://github.com/ljmerza/tracking-number-card/releases/latest).
+2. Copy it to `config/www/tracking-number-card.js`.
+3. Go to **Settings → Dashboards → Resources → Add Resource**.
+4. Set the URL to `/local/tracking-number-card.js` and the type to **JavaScript Module**.
+5. Hard-refresh your browser.
 
 ### Configuration Options
 
