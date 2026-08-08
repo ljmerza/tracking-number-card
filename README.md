@@ -1,5 +1,17 @@
 # Tracking Number Card
 
+<p align="center">
+<img src="https://img.shields.io/github/stars/ljmerza/tracking-number-card?style=for-the-badge&label=Stars&color=orange" alt="Stars">
+<a href="https://github.com/ljmerza/tracking-number-card/releases"><img src="https://img.shields.io/github/downloads/ljmerza/tracking-number-card/total?style=for-the-badge&label=Downloads&color=blue" alt="Downloads"></a>
+<a href="https://github.com/ljmerza/tracking-number-card/releases/latest"><img src="https://img.shields.io/github/v/release/ljmerza/tracking-number-card?style=for-the-badge&color=purple" alt="Version"></a>
+<a href="https://github.com/ljmerza/tracking-number-card/actions/workflows/release.yaml"><img src="https://img.shields.io/github/actions/workflow/status/ljmerza/tracking-number-card/release.yaml?style=for-the-badge&label=Build" alt="Build"></a>
+<a href="https://github.com/ljmerza/tracking-number-card/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ljmerza/tracking-number-card?style=for-the-badge&label=License&color=green" alt="License"></a>
+</p>
+
+<p align="center">
+<a href="https://www.buymeacoffee.com/JMISm06AD"><img src="https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me A Coffee"></a>
+</p>
+
 A modern, customizable Home Assistant Lovelace card for displaying package tracking numbers with clickable links. Requires [tracking-numbers](https://github.com/ljmerza/tracking-numbers) custom integration
 
 <img src="card.png" alt="Tracking Number Card Screenshot" width="400"/>
@@ -74,9 +86,3 @@ MIT License - see LICENSE file for details
 
 For issues, feature requests, or questions:
 - GitHub Issues: [tracking-number-card/issues](https://github.com/ljmerza/tracking-number-card/issues)
-
----
-
-Enjoy my work? Help me out for a couple of :beers: or a :coffee:!
-
-<a href="https://www.buymeacoffee.com/JMISm06AD"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
