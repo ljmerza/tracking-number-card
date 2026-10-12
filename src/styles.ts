@@ -197,18 +197,24 @@ export const styles = css`
     --mdc-icon-size: 18px;
   }
 
+  /* One grid for all rows so values line up under the widest label. */
   .package-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+    column-gap: 8px;
+    row-gap: 4px;
   }
 
   .package-detail {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: contents;
     font-size: 14px;
     color: var(--secondary-text-color);
+  }
+
+  .package-detail > .status-chip {
+    grid-column: 1 / -1;
+    justify-self: start;
   }
 
   .package-detail ha-icon {
@@ -218,11 +224,24 @@ export const styles = css`
 
   .package-detail-label {
     font-weight: 500;
-    min-width: 80px;
+    white-space: nowrap;
+    /* Fits "Est. delivery:" so values line up across cards too */
+    min-width: 7em;
   }
 
   .package-detail-value {
-    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .delivery-source {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 11px;
+    color: var(--secondary-text-color);
+    background: var(--divider-color);
+    white-space: nowrap;
   }
 
   .status-chip {

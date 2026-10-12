@@ -200,6 +200,19 @@ export class TrackingNumberCardEditor extends LitElement {
               @change=${(e: Event) => this._switchChanged(e, 'show_origin')}
             ></ha-switch>
           </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Delivery Source</div>
+              <div class="switch-description">
+                Tag estimated delivery dates as coming from an email or the carrier
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_delivery_source !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_delivery_source')}
+            ></ha-switch>
+          </div>
         </div>
 
         <!-- Sorting Options -->
