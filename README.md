@@ -25,6 +25,7 @@ A modern, customizable Home Assistant Lovelace card for displaying package track
 - Add manual tracking numbers directly from the card
 - Remove or hide entries with a single click
 - Display carrier information with icons
+- Show estimated and actual delivery dates, including dates read from shipping emails
 - Show relative timestamps (e.g., "2 hours ago")
 - Summary statistics by carrier
 - Fully customizable sorting and display options
@@ -63,10 +64,21 @@ HACS automatically registers the Lovelace resource `/hacsfiles/tracking-number-c
 | `show_summary` | boolean | `true` | Show summary statistics by carrier |
 | `show_carrier` | boolean | `true` | Display carrier information for each package |
 | `show_origin` | boolean | `true` | Display retailer or sender information when available |
+| `show_delivery_source` | boolean | `true` | Tag the estimated delivery date with where it came from (`from email` or `from carrier`) |
 | `show_dates` | boolean | `true` | Show last updated timestamps |
 | `sort_by` | string | `first_seen` | Sort field: `first_seen`, `carrier`, or `tracking_number` |
 | `sort_direction` | string | `desc` | Sort direction: `asc` or `desc` |
 | `max_items` | number | unlimited | Maximum number of packages to display |
+
+### Delivery dates
+
+Each package can show these rows when the integration provides the data:
+
+- **Est. delivery**: the `estimated_delivery` date. If the package also has `estimated_delivery_source`, a small `from email` or `from carrier` tag follows the date (hide it with `show_delivery_source: false`). A date from a live carrier status provider takes priority over one read from an email.
+- **Delivered**: the `delivered_date`, set when the integration sees a "Delivered" email.
+- **Status chip**: packages with a `delivered_date` but no `delivery_status` get the same green "Delivered" chip as packages whose carrier reports `delivered`. When a carrier status is present, the chip uses it.
+
+`estimated_delivery_source` and `delivered_date` need a version of [tracking-numbers](https://github.com/ljmerza/tracking-numbers) that reads delivery dates from emails. Older versions don't send these fields, and the card shows nothing extra for them.
 
 ## Contributing
 

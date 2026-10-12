@@ -43,11 +43,24 @@ export function formatDateTime(dateString: string): string {
 }
 
 /**
+ * Parse a date string, treating date-only values (e.g. "2026-07-10") as a
+ * local calendar date. `new Date('YYYY-MM-DD')` parses as UTC midnight, which
+ * lands on the previous day in timezones west of UTC.
+ */
+export function parseLocalDate(dateString: string): Date {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateString.trim());
+  if (match) {
+    return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  }
+  return new Date(dateString);
+}
+
+/**
  * Format a date-only string (e.g. "2026-07-10") to a short readable date.
  * Falls back to the original string if it can't be parsed.
  */
 export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
+  const date = parseLocalDate(dateString);
   if (!Number.isFinite(date.getTime())) {
     return dateString;
   }

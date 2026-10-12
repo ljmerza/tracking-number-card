@@ -225,6 +225,16 @@ export const styles = css`
     flex: 1;
   }
 
+  .delivery-source {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 11px;
+    color: var(--secondary-text-color);
+    background: var(--divider-color);
+    white-space: nowrap;
+  }
+
   .status-chip {
     display: inline-flex;
     align-items: center;

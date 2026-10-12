@@ -58,6 +58,7 @@ export class TrackingNumberCard extends LitElement {
       show_summary: true,
       show_carrier: true,
       show_origin: true,
+      show_delivery_source: true,
       sort_by: 'first_seen',
       sort_direction: 'desc',
       ...normalizedConfig
@@ -79,6 +80,7 @@ export class TrackingNumberCard extends LitElement {
       show_summary: true,
       show_carrier: true,
       show_origin: true,
+      show_delivery_source: true,
       sort_by: 'first_seen',
       sort_direction: 'desc'
     };
@@ -240,24 +242,48 @@ export class TrackingNumberCard extends LitElement {
       `);
     }
 
-    if (pkg.status) {
-      const { className, icon } = getStatusMeta(pkg.delivery_status);
+    // A real delivery_status always wins; otherwise a "Delivered" email
+    // (delivered_date) gets the same chip as delivery_status "delivered".
+    const deliveredFromEmail = !pkg.delivery_status && !!pkg.delivered_date;
+    if (pkg.status || deliveredFromEmail) {
+      const { className, icon } = getStatusMeta(
+        deliveredFromEmail ? 'delivered' : pkg.delivery_status
+      );
       details.push(html`
         <div class="package-detail">
           <span class="status-chip ${className}">
             <ha-icon icon=${icon}></ha-icon>
-            <span>${pkg.status}</span>
+            <span>${deliveredFromEmail ? 'Delivered' : pkg.status}</span>
           </span>
         </div>
       `);
     }
 
     if (pkg.estimated_delivery) {
+      const source = (pkg.estimated_delivery_source ?? '').toLowerCase();
+      const showSource =
+        this.config?.show_delivery_source !== false &&
+        (source === 'email' || source === 'carrier');
       details.push(html`
         <div class="package-detail">
           <ha-icon icon="mdi:calendar-clock"></ha-icon>
           <span class="package-detail-label">Est. delivery:</span>
-          <span class="package-detail-value">${formatDate(pkg.estimated_delivery)}</span>
+          <span class="package-detail-value">
+            ${formatDate(pkg.estimated_delivery)}
+            ${showSource
+              ? html`<span class="delivery-source">from ${source}</span>`
+              : ''}
+          </span>
+        </div>
+      `);
+    }
+
+    if (pkg.delivered_date) {
+      details.push(html`
+        <div class="package-detail">
+          <ha-icon icon="mdi:calendar-check"></ha-icon>
+          <span class="package-detail-label">Delivered:</span>
+          <span class="package-detail-value">${formatDate(pkg.delivered_date)}</span>
         </div>
       `);
     }

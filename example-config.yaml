@@ -14,6 +14,7 @@
   show_carrier: true
   show_origin: true
   show_dates: true
+  show_delivery_source: true
   sort_by: first_seen
   sort_direction: desc
 
@@ -26,6 +27,7 @@
   show_carrier: false
   show_origin: false
   show_dates: false
+  show_delivery_source: false
 
 # Limited Display
 # Show only the 5 most recent packages
