@@ -100,6 +100,69 @@ export function getStatusMeta(deliveryStatus?: string): { className: string; ico
 }
 
 /**
+ * A package counts as delivered once a "Delivered" email set delivered_date
+ * or the carrier reports delivery_status "delivered".
+ */
+export function isDelivered(pkg: Package): boolean {
+  return !!pkg.delivered_date || (pkg.delivery_status ?? '').toLowerCase() === 'delivered';
+}
+
+/**
+ * Local-midnight timestamp of the package's estimated delivery date, or
+ * undefined when it has none (or it can't be parsed).
+ */
+function getEstimatedDeliveryDay(pkg: Package): number | undefined {
+  if (!pkg.estimated_delivery) {
+    return undefined;
+  }
+  const date = parseLocalDate(pkg.estimated_delivery);
+  if (!Number.isFinite(date.getTime())) {
+    return undefined;
+  }
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+}
+
+/**
+ * "today" when an undelivered package's estimated delivery is today in the
+ * browser's local date, "overdue" when it is before today, otherwise undefined.
+ */
+export function getArrivalState(pkg: Package): 'today' | 'overdue' | undefined {
+  if (isDelivered(pkg)) {
+    return undefined;
+  }
+  const eta = getEstimatedDeliveryDay(pkg);
+  if (eta === undefined) {
+    return undefined;
+  }
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  if (eta === today) {
+    return 'today';
+  }
+  return eta < today ? 'overdue' : undefined;
+}
+
+/**
+ * Order by estimated delivery: soonest first, then packages without an
+ * estimate, then delivered packages. Ties keep the incoming order.
+ */
+function sortByEstimatedDelivery(packages: Package[]): Package[] {
+  const rank = (pkg: Package): [number, number] => {
+    if (isDelivered(pkg)) {
+      return [2, 0];
+    }
+    const eta = getEstimatedDeliveryDay(pkg);
+    return eta === undefined ? [1, 0] : [0, eta];
+  };
+
+  return [...packages].sort((a, b) => {
+    const [groupA, etaA] = rank(a);
+    const [groupB, etaB] = rank(b);
+    return groupA !== groupB ? groupA - groupB : etaA - etaB;
+  });
+}
+
+/**
  * Sort packages based on configuration
  */
 export function sortPackages(
@@ -107,6 +170,11 @@ export function sortPackages(
   sortBy: string = 'first_seen',
   sortDirection: 'asc' | 'desc' = 'desc'
 ): Package[] {
+  if (sortBy === 'estimated_delivery') {
+    // Ties within the same estimated-delivery group fall back to first-seen order.
+    return sortByEstimatedDelivery(sortPackages(packages, 'first_seen', sortDirection));
+  }
+
   const resolveTimestamp = (...dates: Array<string | undefined>): number => {
     for (const date of dates) {
       if (!date) {

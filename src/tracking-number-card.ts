@@ -14,7 +14,8 @@ import {
   sortPackages,
   copyToClipboard,
   getCarrierIcon,
-  getStatusMeta
+  getStatusMeta,
+  getArrivalState
 } from './utils';
 import './editor';
 import { version } from '../package.json';
@@ -59,6 +60,7 @@ export class TrackingNumberCard extends LitElement {
       show_carrier: true,
       show_origin: true,
       show_delivery_source: true,
+      highlight_arrivals: true,
       sort_by: 'first_seen',
       sort_direction: 'desc',
       ...normalizedConfig
@@ -81,6 +83,7 @@ export class TrackingNumberCard extends LitElement {
       show_carrier: true,
       show_origin: true,
       show_delivery_source: true,
+      highlight_arrivals: true,
       sort_by: 'first_seen',
       sort_direction: 'desc'
     };
@@ -189,9 +192,12 @@ export class TrackingNumberCard extends LitElement {
   private _renderPackageItem(pkg: Package): TemplateResult {
     const isManual = pkg.source === 'manual' || pkg.retailer_code === 'manual_entry';
     const isRemoving = this.removingTracking[pkg.tracking_number];
+    const arrival = this.config?.highlight_arrivals !== false
+      ? getArrivalState(pkg)
+      : undefined;
 
     return html`
-      <div class="package-item">
+      <div class="package-item ${arrival ? `arrival-${arrival}` : ''}">
         <div class="package-header">
           <div class="package-tracking">
             <a
@@ -213,6 +219,11 @@ export class TrackingNumberCard extends LitElement {
             </button>
           </div>
           <div class="package-header-actions">
+            ${arrival
+              ? html`<span class="arrival-badge">
+                  ${arrival === 'today' ? 'Arriving today' : 'Overdue'}
+                </span>`
+              : ''}
             ${isManual ? html`<span class="manual-badge">Manual</span>` : ''}
             <button
               class="remove-button"

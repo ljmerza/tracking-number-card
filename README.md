@@ -65,8 +65,9 @@ HACS automatically registers the Lovelace resource `/hacsfiles/tracking-number-c
 | `show_carrier` | boolean | `true` | Display carrier information for each package |
 | `show_origin` | boolean | `true` | Display retailer or sender information when available |
 | `show_delivery_source` | boolean | `true` | Tag the estimated delivery date with where it came from (`from email` or `from carrier`) |
+| `highlight_arrivals` | boolean | `true` | Highlight undelivered packages whose estimated delivery is today ("Arriving today") or already past ("Overdue") |
 | `show_dates` | boolean | `true` | Show last updated timestamps |
-| `sort_by` | string | `first_seen` | Sort field: `first_seen`, `carrier`, or `tracking_number` |
+| `sort_by` | string | `first_seen` | Sort field: `first_seen`, `carrier`, `tracking_number`, or `estimated_delivery` |
 | `sort_direction` | string | `desc` | Sort direction: `asc` or `desc` |
 | `max_items` | number | unlimited | Maximum number of packages to display |
 
@@ -77,6 +78,10 @@ Each package can show these rows when the integration provides the data:
 - **Est. delivery**: the `estimated_delivery` date. If the package also has `estimated_delivery_source`, a small `from email` or `from carrier` tag follows the date (hide it with `show_delivery_source: false`). A date from a live carrier status provider takes priority over one read from an email.
 - **Delivered**: the `delivered_date`, set when the integration sees a "Delivered" email.
 - **Status chip**: packages with a `delivered_date` but no `delivery_status` get the same green "Delivered" chip as packages whose carrier reports `delivered`. When a carrier status is present, the chip uses it.
+
+With `sort_by: estimated_delivery`, packages with an estimated delivery come first (soonest date first), then packages without one, then delivered packages. `sort_direction` doesn't reverse this order. It only orders packages that tie (same date, or both without a date) by first seen.
+
+With `highlight_arrivals` on, a package that isn't delivered yet gets a colored left border and a badge: "Arriving today" when its estimated delivery is today, or "Overdue" when the date has passed. The card compares dates using your browser's local date. A package counts as delivered when it has a `delivered_date` or its `delivery_status` is `delivered`.
 
 `estimated_delivery_source` and `delivered_date` need a version of [tracking-numbers](https://github.com/ljmerza/tracking-numbers) that reads delivery dates from emails. Older versions don't send these fields, and the card shows nothing extra for them.
 

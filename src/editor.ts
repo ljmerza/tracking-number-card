@@ -213,6 +213,19 @@ export class TrackingNumberCardEditor extends LitElement {
               @change=${(e: Event) => this._switchChanged(e, 'show_delivery_source')}
             ></ha-switch>
           </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Highlight Arrivals</div>
+              <div class="switch-description">
+                Highlight undelivered packages expected today or past their estimated delivery
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.highlight_arrivals !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'highlight_arrivals')}
+            ></ha-switch>
+          </div>
         </div>
 
         <!-- Sorting Options -->
@@ -235,6 +248,7 @@ export class TrackingNumberCardEditor extends LitElement {
               <mwc-list-item value="first_seen">First Seen</mwc-list-item>
               <mwc-list-item value="carrier">Carrier</mwc-list-item>
               <mwc-list-item value="tracking_number">Tracking Number</mwc-list-item>
+              <mwc-list-item value="estimated_delivery">Estimated Delivery</mwc-list-item>
             </ha-select>
           </div>
 
