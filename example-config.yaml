@@ -47,6 +47,16 @@
   sort_direction: asc
   show_summary: true
 
+# Upcoming Deliveries
+# Soonest estimated delivery first, delivered packages last,
+# with "Arriving today" / "Overdue" highlights
+- type: custom:tracking-number-card
+  entity: sensor.tracking_numbers
+  title: Upcoming Deliveries
+  sort_by: estimated_delivery
+  highlight_arrivals: true
+  show_delivery_source: true
+
 # Example sensor configuration for testing
 # Add this to your configuration.yaml to create a test sensor
 
