@@ -124,33 +124,6 @@ export const styles = css`
     letter-spacing: 0.05em;
   }
 
-  .arrival-badge {
-    border-radius: 999px;
-    padding: 2px 8px;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .package-item.arrival-today {
-    border-left: 4px solid var(--primary-color);
-  }
-
-  .package-item.arrival-today .arrival-badge {
-    color: var(--primary-color);
-    background: color-mix(in srgb, var(--primary-color) 15%, transparent);
-  }
-
-  .package-item.arrival-overdue {
-    border-left: 4px solid var(--warning-color, #f9a825);
-  }
-
-  .package-item.arrival-overdue .arrival-badge {
-    color: var(--warning-color, #f9a825);
-    background: color-mix(in srgb, var(--warning-color, #f9a825) 15%, transparent);
-  }
-
   .remove-button {
     display: inline-flex;
     align-items: center;
