@@ -123,26 +123,6 @@ function getEstimatedDeliveryDay(pkg: Package): number | undefined {
 }
 
 /**
- * "today" when an undelivered package's estimated delivery is today in the
- * browser's local date, "overdue" when it is before today, otherwise undefined.
- */
-export function getArrivalState(pkg: Package): 'today' | 'overdue' | undefined {
-  if (isDelivered(pkg)) {
-    return undefined;
-  }
-  const eta = getEstimatedDeliveryDay(pkg);
-  if (eta === undefined) {
-    return undefined;
-  }
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
-  if (eta === today) {
-    return 'today';
-  }
-  return eta < today ? 'overdue' : undefined;
-}
-
-/**
  * Order by estimated delivery: soonest first, then packages without an
  * estimate, then delivered packages. Ties keep the incoming order.
  */
