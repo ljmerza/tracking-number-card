@@ -65,7 +65,12 @@ HACS automatically registers the Lovelace resource `/hacsfiles/tracking-number-c
 | `show_carrier` | boolean | `true` | Display carrier information for each package |
 | `show_origin` | boolean | `true` | Display retailer or sender information when available |
 | `show_delivery_source` | boolean | `true` | Tag the estimated delivery date with where it came from (`from email` or `from carrier`) |
-| `show_dates` | boolean | `true` | Show last updated timestamps |
+| `show_order` | boolean | `true` | Show the retailer order row (number + link) when available |
+| `show_status` | boolean | `true` | Show the delivery status chip |
+| `show_estimated_delivery` | boolean | `true` | Show the estimated delivery date |
+| `show_delivered` | boolean | `true` | Show the delivered date |
+| `show_dates` | boolean | `true` | Show when the live carrier status was last updated (**Updated** row) |
+| `show_email_date` | boolean | `true` | Show the date of the first email about the package (**Email** row) |
 | `sort_by` | string | `first_seen` | Sort field: `first_seen`, `carrier`, `tracking_number`, or `estimated_delivery` |
 | `sort_direction` | string | `desc` | Sort direction: `asc` or `desc` |
 | `max_items` | number | unlimited | Maximum number of packages to display |
@@ -76,6 +81,7 @@ Each package can show these rows when the integration provides the data:
 
 - **Est. delivery**: the `estimated_delivery` date. If the package also has `estimated_delivery_source`, a small `from email` or `from carrier` tag follows the date (hide it with `show_delivery_source: false`). A date from a live carrier status provider takes priority over one read from an email.
 - **Delivered**: the `delivered_date`, set when the integration sees a "Delivered" email.
+- **Email**: the date of the first email about the package (`first_seen`), in your local timezone. Manually added packages don't show it.
 - **Status chip**: packages with a `delivered_date` but no `delivery_status` get the same green "Delivered" chip as packages whose carrier reports `delivered`. When a carrier status is present, the chip uses it.
 
 With `sort_by: estimated_delivery`, packages with an estimated delivery come first (soonest date first), then packages without one, then delivered packages. `sort_direction` doesn't reverse this order. It only orders packages that tie (same date, or both without a date) by first seen.

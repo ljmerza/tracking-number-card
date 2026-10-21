@@ -23,6 +23,12 @@ export interface TrackingNumberCardConfig extends LovelaceCardConfig {
   show_carrier?: boolean;
   show_origin?: boolean;
   show_delivery_source?: boolean;
+  show_order?: boolean;
+  show_status?: boolean;
+  show_estimated_delivery?: boolean;
+  show_delivered?: boolean;
+  show_dates?: boolean;
+  show_email_date?: boolean;
   sort_by?: 'first_seen' | 'carrier' | 'tracking_number' | 'estimated_delivery';
   sort_direction?: 'asc' | 'desc';
   max_items?: number;
