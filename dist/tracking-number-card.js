@@ -799,9 +799,9 @@ function t(t,e,i,r){var s,o=arguments.length,a=o<3?e:null===r?r=Object.getOwnPro
       </div>
     `}_isOrderOnly(t){return!!t.order_number&&t.order_number===t.tracking_number}_renderPackageDetails(t){const e=[];this._isOrderOnly(t)?e.push(I`
         <div class="package-detail">
-          <ha-icon icon="mdi:truck-off-outline"></ha-icon>
+          <ha-icon icon="mdi:package"></ha-icon>
           <span class="package-detail-label">Tracking:</span>
-          <span class="package-detail-value">none (shipped without tracking)</span>
+          <span class="package-detail-value">none</span>
         </div>
       `):this.config?.show_carrier&&e.push(I`
         <div class="package-detail">

@@ -242,9 +242,9 @@ export class TrackingNumberCard extends LitElement {
       // Shipped without tracking: the header is the order, so there's no real carrier to show
       details.push(html`
         <div class="package-detail">
-          <ha-icon icon="mdi:truck-off-outline"></ha-icon>
+          <ha-icon icon="mdi:package"></ha-icon>
           <span class="package-detail-label">Tracking:</span>
-          <span class="package-detail-value">none (shipped without tracking)</span>
+          <span class="package-detail-value">none</span>
         </div>
       `);
     } else if (this.config?.show_carrier) {
