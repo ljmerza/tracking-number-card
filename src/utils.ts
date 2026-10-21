@@ -56,6 +56,25 @@ export function parseLocalDate(dateString: string): Date {
 }
 
 /**
+ * Format a timestamp the integration stores as naive UTC (e.g. first_seen
+ * "2026-10-21T00:41:08") as a short local date. Without a timezone suffix
+ * `new Date()` would read it as local time and can land on the wrong day.
+ */
+export function formatUtcDate(dateString: string): string {
+  const hasZone = /(Z|[+-]\d{2}:?\d{2})$/i.test(dateString.trim());
+  const date = new Date(hasZone ? dateString : `${dateString.trim()}Z`);
+  if (!Number.isFinite(date.getTime())) {
+    return dateString;
+  }
+  const now = new Date();
+  return date.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined
+  });
+}
+
+/**
  * Format a date-only string (e.g. "2026-07-10") to a short readable date.
  * Falls back to the original string if it can't be parsed.
  */
