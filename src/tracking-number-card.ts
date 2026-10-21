@@ -11,6 +11,7 @@ import {
   formatRelativeTime,
   formatDateTime,
   formatDate,
+  formatUtcDate,
   sortPackages,
   copyToClipboard,
   getCarrierIcon,
@@ -59,6 +60,12 @@ export class TrackingNumberCard extends LitElement {
       show_carrier: true,
       show_origin: true,
       show_delivery_source: true,
+      show_order: true,
+      show_status: true,
+      show_estimated_delivery: true,
+      show_delivered: true,
+      show_dates: true,
+      show_email_date: true,
       sort_by: 'first_seen',
       sort_direction: 'desc',
       ...normalizedConfig
@@ -81,6 +88,12 @@ export class TrackingNumberCard extends LitElement {
       show_carrier: true,
       show_origin: true,
       show_delivery_source: true,
+      show_order: true,
+      show_status: true,
+      show_estimated_delivery: true,
+      show_delivered: true,
+      show_dates: true,
+      show_email_date: true,
       sort_by: 'first_seen',
       sort_direction: 'desc'
     };
@@ -238,7 +251,7 @@ export class TrackingNumberCard extends LitElement {
   private _renderPackageDetails(pkg: Package): TemplateResult {
     const details: TemplateResult[] = [];
 
-    if (this._isOrderOnly(pkg)) {
+    if (this._isOrderOnly(pkg) && this.config?.show_carrier !== false) {
       // Shipped without tracking: the header is the order, so there's no real carrier to show
       details.push(html`
         <div class="package-detail">
@@ -247,7 +260,7 @@ export class TrackingNumberCard extends LitElement {
           <span class="package-detail-value">none</span>
         </div>
       `);
-    } else if (this.config?.show_carrier) {
+    } else if (!this._isOrderOnly(pkg) && this.config?.show_carrier) {
       details.push(html`
         <div class="package-detail">
           <ha-icon .icon=${getCarrierIcon(pkg.carrier)}></ha-icon>
@@ -258,7 +271,11 @@ export class TrackingNumberCard extends LitElement {
     }
 
     // Retailer order; order-only entries already show it as the tracking number
-    if (pkg.order_number && pkg.order_number !== pkg.tracking_number) {
+    if (
+      this.config?.show_order !== false &&
+      pkg.order_number &&
+      pkg.order_number !== pkg.tracking_number
+    ) {
       details.push(html`
         <div class="package-detail">
           <ha-icon icon="mdi:receipt-text-outline"></ha-icon>
@@ -282,7 +299,7 @@ export class TrackingNumberCard extends LitElement {
     // A real delivery_status always wins; otherwise a "Delivered" email
     // (delivered_date) gets the same chip as delivery_status "delivered".
     const deliveredFromEmail = !pkg.delivery_status && !!pkg.delivered_date;
-    if (pkg.status || deliveredFromEmail) {
+    if (this.config?.show_status !== false && (pkg.status || deliveredFromEmail)) {
       const { className, icon } = getStatusMeta(
         deliveredFromEmail ? 'delivered' : pkg.delivery_status
       );
@@ -296,7 +313,7 @@ export class TrackingNumberCard extends LitElement {
       `);
     }
 
-    if (pkg.estimated_delivery) {
+    if (this.config?.show_estimated_delivery !== false && pkg.estimated_delivery) {
       const source = (pkg.estimated_delivery_source ?? '').toLowerCase();
       const showSource =
         this.config?.show_delivery_source !== false &&
@@ -315,7 +332,7 @@ export class TrackingNumberCard extends LitElement {
       `);
     }
 
-    if (pkg.delivered_date) {
+    if (this.config?.show_delivered !== false && pkg.delivered_date) {
       details.push(html`
         <div class="package-detail">
           <ha-icon icon="mdi:calendar-check"></ha-icon>
@@ -325,12 +342,24 @@ export class TrackingNumberCard extends LitElement {
       `);
     }
 
-    if (pkg.status_updated) {
+    if (this.config?.show_dates !== false && pkg.status_updated) {
       details.push(html`
         <div class="package-detail">
           <ha-icon icon="mdi:update"></ha-icon>
           <span class="package-detail-label">Updated:</span>
           <span class="package-detail-value">${formatRelativeTime(pkg.status_updated)}</span>
+        </div>
+      `);
+    }
+
+    // first_seen is the earliest email about the package; manual entries have no email
+    const isManual = pkg.source === 'manual' || pkg.retailer_code === 'manual_entry';
+    if (this.config?.show_email_date !== false && pkg.first_seen && !isManual) {
+      details.push(html`
+        <div class="package-detail">
+          <ha-icon icon="mdi:email-outline"></ha-icon>
+          <span class="package-detail-label">Email:</span>
+          <span class="package-detail-value">${formatUtcDate(pkg.first_seen)}</span>
         </div>
       `);
     }

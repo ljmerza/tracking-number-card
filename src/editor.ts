@@ -190,6 +190,45 @@ export class TrackingNumberCardEditor extends LitElement {
 
           <div class="switch-row">
             <div class="switch-label">
+              <div class="switch-title">Show Order</div>
+              <div class="switch-description">
+                Display the retailer order number and link when available
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_order !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_order')}
+            ></ha-switch>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Status</div>
+              <div class="switch-description">
+                Display the delivery status chip
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_status !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_status')}
+            ></ha-switch>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Estimated Delivery</div>
+              <div class="switch-description">
+                Display the estimated delivery date
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_estimated_delivery !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_estimated_delivery')}
+            ></ha-switch>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
               <div class="switch-title">Show Origin</div>
               <div class="switch-description">
                 Display retailer or sender information when available
@@ -211,6 +250,45 @@ export class TrackingNumberCardEditor extends LitElement {
             <ha-switch
               .checked=${this.config.show_delivery_source !== false}
               @change=${(e: Event) => this._switchChanged(e, 'show_delivery_source')}
+            ></ha-switch>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Delivered Date</div>
+              <div class="switch-description">
+                Display the date a package was delivered
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_delivered !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_delivered')}
+            ></ha-switch>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Last Updated</div>
+              <div class="switch-description">
+                Display when the live carrier status was last updated
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_dates !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_dates')}
+            ></ha-switch>
+          </div>
+
+          <div class="switch-row">
+            <div class="switch-label">
+              <div class="switch-title">Show Email Date</div>
+              <div class="switch-description">
+                Display the date of the first email about the package
+              </div>
+            </div>
+            <ha-switch
+              .checked=${this.config.show_email_date !== false}
+              @change=${(e: Event) => this._switchChanged(e, 'show_email_date')}
             ></ha-switch>
           </div>
         </div>
