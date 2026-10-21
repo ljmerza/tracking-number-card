@@ -234,6 +234,23 @@ export const styles = css`
     overflow-wrap: anywhere;
   }
 
+  .order-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .order-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+
+  .order-link ha-icon {
+    --mdc-icon-size: 14px;
+  }
+
   .delivery-source {
     margin-left: 6px;
     padding: 1px 6px;

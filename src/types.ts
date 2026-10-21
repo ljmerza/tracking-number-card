@@ -44,6 +44,8 @@ export interface Package {
   delivered_date?: string;
   status_updated?: string;
   source?: string;
+  order_number?: string;
+  order_link?: string;
 }
 
 export interface EntityAttributes {

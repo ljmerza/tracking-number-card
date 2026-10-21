@@ -189,6 +189,7 @@ export class TrackingNumberCard extends LitElement {
   private _renderPackageItem(pkg: Package): TemplateResult {
     const isManual = pkg.source === 'manual' || pkg.retailer_code === 'manual_entry';
     const isRemoving = this.removingTracking[pkg.tracking_number];
+    const isOrderOnly = this._isOrderOnly(pkg);
 
     return html`
       <div class="package-item">
@@ -199,7 +200,7 @@ export class TrackingNumberCard extends LitElement {
               target="_blank"
               rel="noopener noreferrer"
               class="tracking-link"
-              title="Open tracking link"
+              title=${isOrderOnly ? 'Open order' : 'Open tracking link'}
             >
               ${pkg.tracking_number}
               <ha-icon icon="mdi:open-in-new"></ha-icon>
@@ -207,7 +208,7 @@ export class TrackingNumberCard extends LitElement {
             <button
               class="copy-button"
               @click=${() => this._handleCopy(pkg.tracking_number)}
-              title="Copy tracking number"
+              title=${isOrderOnly ? 'Copy order number' : 'Copy tracking number'}
             >
               <ha-icon icon="mdi:content-copy"></ha-icon>
             </button>
@@ -229,15 +230,51 @@ export class TrackingNumberCard extends LitElement {
     `;
   }
 
+  // An order that shipped without tracking: the integration puts the order number in tracking_number
+  private _isOrderOnly(pkg: Package): boolean {
+    return !!pkg.order_number && pkg.order_number === pkg.tracking_number;
+  }
+
   private _renderPackageDetails(pkg: Package): TemplateResult {
     const details: TemplateResult[] = [];
 
-    if (this.config?.show_carrier) {
+    if (this._isOrderOnly(pkg)) {
+      // Shipped without tracking: the header is the order, so there's no real carrier to show
+      details.push(html`
+        <div class="package-detail">
+          <ha-icon icon="mdi:truck-off-outline"></ha-icon>
+          <span class="package-detail-label">Tracking:</span>
+          <span class="package-detail-value">none (shipped without tracking)</span>
+        </div>
+      `);
+    } else if (this.config?.show_carrier) {
       details.push(html`
         <div class="package-detail">
           <ha-icon .icon=${getCarrierIcon(pkg.carrier)}></ha-icon>
           <span class="package-detail-label">Carrier:</span>
           <span class="package-detail-value">${pkg.carrier}</span>
+        </div>
+      `);
+    }
+
+    // Retailer order; order-only entries already show it as the tracking number
+    if (pkg.order_number && pkg.order_number !== pkg.tracking_number) {
+      details.push(html`
+        <div class="package-detail">
+          <ha-icon icon="mdi:receipt-text-outline"></ha-icon>
+          <span class="package-detail-label">Order:</span>
+          <span class="package-detail-value">
+            ${pkg.order_link
+              ? html`<a
+                  href=${pkg.order_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="order-link"
+                  title="Open order"
+                  >${pkg.order_number}<ha-icon icon="mdi:open-in-new"></ha-icon
+                ></a>`
+              : pkg.order_number}
+          </span>
         </div>
       `);
     }

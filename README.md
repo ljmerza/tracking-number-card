@@ -82,6 +82,10 @@ With `sort_by: estimated_delivery`, packages with an estimated delivery come fir
 
 `estimated_delivery_source` and `delivered_date` need a version of [tracking-numbers](https://github.com/ljmerza/tracking-numbers) that reads delivery dates from emails. Older versions don't send these fields, and the card shows nothing extra for them.
 
+### Order numbers
+
+When the integration knows which retailer order a shipment belongs to (`order_number`, currently TCGplayer and Stride Rite), the package shows an **Order** row. It links to the retailer's order page (`order_link`), while the tracking number keeps linking to the carrier. When the order number is the tracking number (an order that shipped without tracking), the package header shows the order number linking to the order page, and a "Tracking: none" row replaces the carrier row. Older integration versions don't send these fields, and the card shows nothing extra.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
